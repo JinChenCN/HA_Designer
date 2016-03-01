@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script type="text/javascript">
+
+        function keyDown(e) {
+            var keycode = e.which;
+            var realkey = String.fromCharCode(e.which);
+            // alert("按键码: " + keycode + " 字符: " + realkey);
+            document.getElementById("a").value = "code: " + keycode + " letter: " + realkey;
+        }
+        document.onkeydown = keyDown;
+
+    </script>
+</head>
+<body>
+    <table>
+
+        <tr>
+            <th>
+
+                The key you pressed was:
+            </th>
+
+            <td id="tdKeyCode">
+
+                <textarea id="a"></textarea>
+</td>
+
+        </tr>
+
+    </table>
+</body>
+</html>
