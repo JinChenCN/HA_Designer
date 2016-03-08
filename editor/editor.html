@@ -456,6 +456,49 @@
                                 </tr>
                 </table>
                             <hr />
+                <table style="width:100%">
+                            <tr  >
+                                <th colspan="1" align="left">Interface</th>                                  
+                            </tr>
+                            <tr>
+                                <th style="width:40%">Input Event <input type="button" value="+InputEvent" onclick="addInputEvent();" /> </th>
+                                <th style="width:40%">Output Event <input type="button" value="+OutputEvent" onclick="addOutputEvent();" /> </th>
+                         <td></td>
+                            </tr>
+                         <tr>
+                         <td> 
+                                    
+                            <datalist id="inputEvent_list">
+                                <option value="Input event 1" />
+                            </datalist>
+                            <div>  </div>
+                            <div id="inputEventPanel">
+                                <div id="inputEventDiv1">
+                                    <label id="lblinputEvent1"> inputEvent 1 </label> <input id="txtinputEvent1" style="width:200px" /> 
+                                     <input type="url" style="width:70px" id="txtDependence1" list="inputEvent_list" name="link" /> 
+                                    <input type="button" onclick="removeInputEvent(1)" id="btnInputEvent1" style="width:40px" value="-" />
+                                </div>
+                            </div>
+
+                        </td>
+                         <td> 
+                                    
+                            <datalist id="outputEvent_list">
+                                <option value="Output event 1" />
+                            </datalist>
+                            <div>  </div>
+                            <div id="outputEventPanel">
+                                <div id="outputEventDiv1">
+                                    <label id="lbloutputEvent1"> outputEvent 1 </label> <input id="txtOutputEvent1" style="width:200px" /> 
+                                     <input type="url" style="width:70px" id="txtDependence1" list="outputEvent_list" name="link" /> 
+                                    <input type="button" onclick="removeOutputEvent(1)" id="btnOutputEvent1" style="width:40px" value="-" />
+                                </div>
+                            </div>
+
+                        </td>
+                                </tr>
+                </table>
+                            <hr />
                      <table width="100%">
                                 <tr>
                                     <th style=" text-align:left" >
