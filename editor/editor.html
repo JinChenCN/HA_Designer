@@ -83,6 +83,7 @@
     <script type="text/javascript" src="./lib/importer.js"></script>
     <script type="text/javascript" src="./lib/main.js"></script>
     <script type="text/javascript" src="./lib/opode.js"></script>
+    <script type="text/javascript" src="./lib/opInputEvent.js"></script>
     <script type="text/javascript" src="./lib/FileSaver.js"></script>
     <script type="text/javascript" src="./lib/Blob.js"></script>
 
@@ -461,8 +462,14 @@
                                 <th colspan="1" align="left">Interface</th>                                  
                             </tr>
                             <tr>
-                                <th style="width:40%">Input Event <input type="button" value="+InputEvent" onclick="addInputEvent();" /> </th>
-                                <th style="width:40%">Output Event <input type="button" value="+OutputEvent" onclick="addOutputEvent();" /> </th>
+                                <th style="width:40%">Input Event 
+                                    <input type="button" value="+InputEvent" onclick="addInputEvent();" /> 
+                                    <input type="button" value="showS" style="display:none" onclick="collectInputEventStr()" />
+                                </th>
+                                <th style="width:40%">Output Event 
+                                    <input type="button" value="+OutputEvent" onclick="addOutputEvent();" /> 
+                                    <input type="button" value="showS" style="display:none" onclick="collectOutputEventStr()" />
+                                </th>
                          <td></td>
                             </tr>
                          <tr>
@@ -474,8 +481,8 @@
                             <div>  </div>
                             <div id="inputEventPanel">
                                 <div id="inputEventDiv1">
-                                    <label id="lblinputEvent1"> inputEvent 1 </label> <input id="txtinputEvent1" style="width:200px" /> 
-                                     <input type="url" style="width:70px" id="txtDependence1" list="inputEvent_list" name="link" /> 
+                                    <label id="lblinputEvent1"> Input Event 1 </label> <input id="txtinputEvent1" style="width:200px" /> 
+                                     <input type="url" style="width:70px" id="txtinputEventDependence1" list="inputEvent_list" name="link" /> 
                                     <input type="button" onclick="removeInputEvent(1)" id="btnInputEvent1" style="width:40px" value="-" />
                                 </div>
                             </div>
@@ -489,8 +496,8 @@
                             <div>  </div>
                             <div id="outputEventPanel">
                                 <div id="outputEventDiv1">
-                                    <label id="lbloutputEvent1"> outputEvent 1 </label> <input id="txtOutputEvent1" style="width:200px" /> 
-                                     <input type="url" style="width:70px" id="txtDependence1" list="outputEvent_list" name="link" /> 
+                                    <label id="lboutputEvent1"> Output Event 1 </label> <input id="txtOutputEvent1" style="width:200px" /> 
+                                     <input type="url" style="width:70px" id="txtoutputDependence1" list="outputEvent_list" name="link" /> 
                                     <input type="button" onclick="removeOutputEvent(1)" id="btnOutputEvent1" style="width:40px" value="-" />
                                 </div>
                             </div>
