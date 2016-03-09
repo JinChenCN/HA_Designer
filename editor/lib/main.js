@@ -3467,7 +3467,7 @@ function exportJasons() {
                   [serializedDiagram]
                 , { type: "application/xhtml+xml;charset=" + document.characterSet }
             )
-        , modelname + "Jason.txt"
+        , modelname + ".json"
     );
 }
 
