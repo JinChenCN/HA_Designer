@@ -458,36 +458,107 @@
                 </table>
                             <hr />
                 <table style="width:100%">
-                            <tr  >
+                            <tr>
                                 <th colspan="1" align="left">Interface</th>                                  
                             </tr>
                             <tr>
-                                <th style="width:40%">Input Event 
+                                <th style="width:50%; text-align: left; padding-top: 10px">External Variables         
+                                    <input type="button" value="+ExternalVarable" onclick="addExternalVarable();" /> 
+                                    <input type="button" value="showS" style="display:none" onclick="collectExternalVarableStr()" />
+                                </th>                             
+                         <td></td>
+                            </tr>
+                         <td style="width:100%" > 
+                                    
+                            <datalist id="ExternalVarable_list">
+                                <option value="External Varable 1" />
+                            </datalist>
+                            <div>  </div>
+                            <div id="ExternalVarablePanel">
+                                <div id="ExternalVarableDiv1">
+                                    <label id="lbExternalVarable1"> External Varable 1 </label> 
+                                    <select id="ExternalVariableType">
+                                      <option value="any">ANY</option>
+                                      <option value="saab">BOOL</option>
+                                      <option value="opel">BYTE</option>
+                                      <option value="audi">DATE_AND_TIME</option>
+                                      <option value="any">DINT</option>
+                                      <option value="saab">DWORD</option>
+                                      <option value="opel">INT</option>
+                                      <option value="audi">LINT</option>
+                                      <option value="any">LREAL</option>
+                                      <option value="saab">LWORD</option>
+                                      <option value="opel">REAL</option>
+                                      <option value="audi">SINT</option>
+                                      <option value="any">STRING</option>
+                                      <option value="saab">TIME</option>
+                                      <option value="opel">UDINT</option>
+                                      <option value="audi">UINT</option>
+                                      <option value="any">ULINT</option>
+                                      <option value="saab">USINT</option>
+                                      <option value="opel">WORD</option>
+                                      <option value="audi">WSTRING</option>
+                                     </select>
+                                     <input id="txtExternalVarable1" onfocus="this.value=''" value="Enter external varable value here" style="width:200px" /> 
+                                    <input type="button" onclick="removeExternalVarable(1)" id="btnExternalVarable1" style="width:40px" value="-" />
+                                </div>
+                            </div>
+
+                        </td>
+                            <tr>
+                                <th style="width:50%; text-align: left; padding-top: 10px">Input Events 
                                     <input type="button" value="+InputEvent" onclick="addInputEvent();" /> 
                                     <input type="button" value="showS" style="display:none" onclick="collectInputEventStr()" />
-                                </th>
-                                <th style="width:40%">Output Event 
+                                </th>                             
+                         <td></td>
+                            </tr>
+                         <td> 
+                                    
+                            <datalist id="inputEvent_list">
+                                <option value="Input Event 1" />
+                            </datalist>
+                            <div>  </div>
+                            <div id="inputEventPanel">
+                                <div id="inputEventDiv1">
+                                    <label id="lblinputEvent1"> Input Event 1 </label> 
+                                    <input id="txtinputEvent1" style="width:200px" onfocus="this.value=''" value="Enter event name here" /> 
+                                    <select id="inputEventValueType">
+                                      <option value="any">ANY</option>
+                                      <option value="saab">BOOL</option>
+                                      <option value="opel">BYTE</option>
+                                      <option value="audi">DATE_AND_TIME</option>
+                                      <option value="any">DINT</option>
+                                      <option value="saab">DWORD</option>
+                                      <option value="opel">INT</option>
+                                      <option value="audi">LINT</option>
+                                      <option value="any">LREAL</option>
+                                      <option value="saab">LWORD</option>
+                                      <option value="opel">REAL</option>
+                                      <option value="audi">SINT</option>
+                                      <option value="any">STRING</option>
+                                      <option value="saab">TIME</option>
+                                      <option value="opel">UDINT</option>
+                                      <option value="audi">UINT</option>
+                                      <option value="any">ULINT</option>
+                                      <option value="saab">USINT</option>
+                                      <option value="opel">WORD</option>
+                                      <option value="audi">WSTRING</option>
+                                     </select>
+                                     <input type="url" style="width:150px" id="txtinputEventDependence1" onfocus="this.value=''" value="Enter event value here" list="inputEvent_list" name="link" /> 
+                                    <input type="button" onclick="removeinputEvent(1)" id="btnInputEvent1" style="width:40px" value="-" />
+                                </div>
+                            </div>
+
+                        </td>
+                            <tr>
+                                <th style="width:50%; text-align: left; ; padding-top: 10px">Output Events 
                                     <input type="button" value="+OutputEvent" onclick="addOutputEvent();" /> 
                                     <input type="button" value="showS" style="display:none" onclick="collectOutputEventStr()" />
                                 </th>
                          <td></td>
                             </tr>
                          <tr>
-                         <td> 
-                                    
-                            <datalist id="inputEvent_list">
-                                <option value="Input event 1" />
-                            </datalist>
-                            <div>  </div>
-                            <div id="inputEventPanel">
-                                <div id="inputEventDiv1">
-                                    <label id="lblinputEvent1"> Input Event 1 </label> <input id="txtinputEvent1" style="width:200px" /> 
-                                     <input type="url" style="width:70px" id="txtinputEventDependence1" list="inputEvent_list" name="link" /> 
-                                    <input type="button" onclick="removeInputEvent(1)" id="btnInputEvent1" style="width:40px" value="-" />
-                                </div>
-                            </div>
 
-                        </td>
                          <td> 
                                     
                             <datalist id="outputEvent_list">
@@ -496,8 +567,31 @@
                             <div>  </div>
                             <div id="outputEventPanel">
                                 <div id="outputEventDiv1">
-                                    <label id="lboutputEvent1"> Output Event 1 </label> <input id="txtOutputEvent1" style="width:200px" /> 
-                                     <input type="url" style="width:70px" id="txtoutputDependence1" list="outputEvent_list" name="link" /> 
+                                    <label id="lboutputEvent1"> Output Event 1 </label> 
+                                    <input id="txtOutputEvent1" style="width:200px" onfocus="this.value=''" value="Enter event name here" /> 
+                                    <select id="outputEventValueType">
+                                      <option value="any">ANY</option>
+                                      <option value="saab">BOOL</option>
+                                      <option value="opel">BYTE</option>
+                                      <option value="audi">DATE_AND_TIME</option>
+                                      <option value="any">DINT</option>
+                                      <option value="saab">DWORD</option>
+                                      <option value="opel">INT</option>
+                                      <option value="audi">LINT</option>
+                                      <option value="any">LREAL</option>
+                                      <option value="saab">LWORD</option>
+                                      <option value="opel">REAL</option>
+                                      <option value="audi">SINT</option>
+                                      <option value="any">STRING</option>
+                                      <option value="saab">TIME</option>
+                                      <option value="opel">UDINT</option>
+                                      <option value="audi">UINT</option>
+                                      <option value="any">ULINT</option>
+                                      <option value="saab">USINT</option>
+                                      <option value="opel">WORD</option>
+                                      <option value="audi">WSTRING</option>
+                                     </select>
+                                     <input type="url" style="width:150px" id="txtoutputDependence1" onfocus="this.value=''" value="Enter event value here" list="outputEvent_list" name="link" /> 
                                     <input type="button" onclick="removeOutputEvent(1)" id="btnOutputEvent1" style="width:40px" value="-" />
                                 </div>
                             </div>
