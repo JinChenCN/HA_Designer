@@ -4861,6 +4861,7 @@ function returnModelInfoInJasonFormat() {
 function captureInterfaceValues() {
     var values = ",\"interface\": [";
     values += collectinputEventStr();
+    values += collectoutputEventStr();
     values += "]"
     return values;
 }

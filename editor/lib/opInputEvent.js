@@ -5,7 +5,7 @@ function addInputEvent()
 {
     inputEventNubers++;
     var s = "<div id=\"inputEventDiv##number##\">" +
-    "<label id=\"lblinputEvent##number##\"> Input Event ##number## </label> <input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtinputEvent##number##\" /> " +
+    "<label id=\"lbinputEvent##number##\"> Input Event ##number## </label> <input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtinputEvent##number##\" /> " +
     "<select id=\"inputEventValueType##number##\"> " + 
                                       "<option value=\"any\">ANY</option>" + 
                                       "<option value=\"bool\">BOOL</option>" + 
@@ -62,7 +62,7 @@ function collectinputEventStr1()
         {
             continue;
         }
-        var inputEventId = document.getElementById("lblinputEvent" + i).innerHTML;
+        var inputEventId = document.getElementById("lbinputEvent" + i).innerHTML;
                 
         var inputEventValue = document.getElementById("txtinputEvent" + i).value;
         var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
@@ -84,15 +84,15 @@ function collectinputEventStr() {
         if (document.getElementById("txtinputEvent" + i).value == "") {
             continue;
         }
-        else if (i > 1) {
-            s += ",";
-        }
-        var inputEventId = document.getElementById("lblinputEvent" + i).innerHTML;
+        var inputEventId = document.getElementById("lbinputEvent" + i).innerHTML;
 
         var inputEventValue = document.getElementById("txtinputEvent" + i).value;
         var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
         var inputEventDependency = document.getElementById("txtinputEventDependence" + i).value;
         s += "{\"id\":\"" + inputEventId.trim() + "\",\"value\":\"" + inputEventValue.trim() + "\",\"inputEventValueType\":\"" + inputEventValueType.trim() + "\",\"inputEventDependency\":\"" + inputEventDependency.trim() + "\"}";
+        if (document.getElementById("txtinputEvent" + i+1) != null && document.getElementById("txtinputEvent" + i+1).value != "") {
+            s += ",";
+        }
     }
 
 
@@ -112,7 +112,7 @@ function collectinputEventStr11() {
         if (document.getElementById("txtinputEvent" + i).value == "") {
             continue;
         }
-        var inputEventId = document.getElementById("lblinputEvent" + i).innerHTML;
+        var inputEventId = document.getElementById("lbinputEvent" + i).innerHTML;
 
         var inputEventValue = document.getElementById("txtinputEvent" + i).value;
         var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
@@ -137,7 +137,7 @@ function collectinputEventStr2() {
         if (document.getElementById("txtinputEvent" + i).value == "") {
             continue;
         }
-        var inputEventId = document.getElementById("lblinputEvent" + i).innerHTML;
+        var inputEventId = document.getElementById("lbinputEvent" + i).innerHTML;
 
         var inputEventValue = document.getElementById("txtinputEvent" + i).value;
         var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
@@ -163,7 +163,7 @@ function reRenderinputEvent(obj) {
     var obj = obj[1];
     var num = obj.inputEvents.length;
     var s = "<div id=\"inputEventDiv##number##\">" +
-    "<label id=\"lblinputEvent##number##\"> Input Event ##number## </label> <input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtinputEvent##number##\" /> " +
+    "<label id=\"lbinputEvent##number##\"> Input Event ##number## </label> <input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtinputEvent##number##\" /> " +
     "<select id=\"inputEventValueType##number##\"> " + 
                                       "<option value=\"any\">ANY</option>" + 
                                       "<option value=\"bool\">BOOL</option>" + 
@@ -197,7 +197,7 @@ function reRenderinputEvent(obj) {
         var newline = s.replace(/##number##/g, n);
         document.getElementById("inputEventPanel").insertAdjacentHTML("beforeEnd", newline);
 
-        document.getElementById("lblinputEvent" + n).innerHTML = inputEventid;
+        document.getElementById("lbinputEvent" + n).innerHTML = inputEventid;
         document.getElementById("txtinputEvent" + n).value = obj.inputEvents[i].value;
         document.getElementById("inputEventValueType" + n).value = obj.inputEvents[i].inputEventValueType;
         document.getElementById("txtinputEventDependence" + n).value = obj.inputEvents[i].inputEventDependency;
@@ -215,7 +215,7 @@ function reRenderinputEvent(obj) {
         document.getElementById('inputEvent_list').innerHTML = "";
 
         var s = "<div id=\"inputEventDiv##number##\">" +
-        "<label id=\"lblinputEvent##number##\"> inputEvent##number## </label> <input id=\"txtinputEvent##number##\" /> " +
+        "<label id=\"lbinputEvent##number##\"> inputEvent##number## </label> <input id=\"txtinputEvent##number##\" /> " +
         "<select id=\"inputEventValueType##number##\"> " + 
                                       "<option value=\"any\">ANY</option>" + 
                                       "<option value=\"bool\">BOOL</option>" + 

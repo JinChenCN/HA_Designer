@@ -84,6 +84,7 @@
     <script type="text/javascript" src="./lib/main.js"></script>
     <script type="text/javascript" src="./lib/opode.js"></script>
     <script type="text/javascript" src="./lib/opInputEvent.js"></script>
+    <script type="text/javascript" src="./lib/opOutputEvent.js"></script>
     <script type="text/javascript" src="./lib/FileSaver.js"></script>
     <script type="text/javascript" src="./lib/Blob.js"></script>
 
@@ -507,7 +508,7 @@
                         </td>
                             <tr>
                                 <th style="width:50%; text-align: left; padding-top: 10px">Input Events 
-                                    <input type="button" value="+InputEvent" onclick="addInputEvent();" /> 
+                                    <input type="button" value="+Input Event" onclick="addInputEvent();" /> 
                                     <input type="button" value="showS" style="display:none" onclick="collectInputEventStr()" />
                                 </th>                             
                          <td></td>
@@ -520,7 +521,7 @@
                             <div>  </div>
                             <div id="inputEventPanel">
                                 <div id="inputEventDiv1">
-                                    <label id="lblinputEvent1"> Input Event 1 </label> 
+                                    <label id="lbinputEvent1"> Input Event 1 </label> 
                                     <input id="txtinputEvent1" style="width:200px" onfocus="this.value=''" value="Enter event name here" /> 
                                     <select id="inputEventValueType1">
                                       <option value="any">ANY</option>
@@ -552,8 +553,8 @@
                         </td>
                             <tr>
                                 <th style="width:50%; text-align: left; ; padding-top: 10px">Output Events 
-                                    <input type="button" value="+OutputEvent" onclick="addOutputEvent();" /> 
-                                    <input type="button" value="showS" style="display:none" onclick="collectOutputEventStr()" />
+                                    <input type="button" value="+Output Event" onclick="addoutputEvent();" /> 
+                                    <input type="button" value="showS" style="display:none" onclick="collectoutputEventStr()" />
                                 </th>
                          <td></td>
                             </tr>
@@ -568,7 +569,7 @@
                             <div id="outputEventPanel">
                                 <div id="outputEventDiv1">
                                     <label id="lboutputEvent1"> Output Event 1 </label> 
-                                    <input id="txtOutputEvent1" style="width:200px" onfocus="this.value=''" value="Enter event name here" /> 
+                                    <input id="txtoutputEvent1" style="width:200px" onfocus="this.value=''" value="Enter event name here" /> 
                                     <select id="outputEventValueType1">
                                       <option value="any">ANY</option>
                                       <option value="bool">BOOL</option>
@@ -591,8 +592,8 @@
                                       <option value="word">WORD</option>
                                       <option value="wstring">WSTRING</option>
                                      </select>
-                                     <input type="url" style="width:150px" id="txtoutputDependence1" onfocus="this.value=''" value="Enter event value here" list="outputEvent_list" name="link" /> 
-                                    <input type="button" onclick="removeOutputEvent(1)" id="btnOutputEvent1" style="width:40px" value="-" />
+                                     <input type="url" style="width:150px" id="txtoutputEventDependence1" onfocus="this.value=''" value="Enter event value here" list="outputEvent_list" name="link" /> 
+                                    <input type="button" onclick="removeoutputEvent(1)" id="btnoutputEvent1" style="width:40px" value="-" />
                                 </div>
                             </div>
 
