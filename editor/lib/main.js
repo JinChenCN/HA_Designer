@@ -4850,7 +4850,7 @@ function returnModelInfoInJasonFormat() {
     //end locations
     outputJason += "]";
     outputJason += captureInterfaceValues();
-    outputJason += "  }";
+    outputJason += " }";
 
     //remove //
     outputJason = outputJason.replace(/\n/g, "\\n")

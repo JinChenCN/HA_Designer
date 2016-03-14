@@ -51,7 +51,7 @@ function removeinputEvent(num)
 function collectinputEventStr1()
 {
     // {inputEvents:[{id:inputEvent1,value:xxx,inputEventDependency:inputEvent2},{}]}
-    var s = "{\"inputEvent\":{\"number\":\"" + inputEventNubers  + "\",\"inputEvents\":[";
+    var s = "{\"inputEvents\":[";
     for (var i = 1; i <= inputEventNubers; i++)
     {
         if (i > 1)
@@ -71,7 +71,7 @@ function collectinputEventStr1()
     }
             
 
-    var s = s + "]}}";
+    var s = s + "]}";
     var serializedDiagram = JSON.stringify(s)
     return serializedDiagram;
     //document.getElementById("txtjson").value = s;
@@ -79,13 +79,13 @@ function collectinputEventStr1()
 
 function collectinputEventStr() {
     // {inputEvents:[{id:inputEvent1,value:xxx,inputEventDependency:inputEvent2},{}]}
-    var s = "{\"inputEvent\":[{\"number\":\"" + inputEventNubers + "\"},{\"inputEvents\":[";
+    var s = "{\"inputEvents\":[";
     for (var i = 1; i <= inputEventNubers; i++) {
-        if (i > 1) {
-            s += ",";
-        }
         if (document.getElementById("txtinputEvent" + i).value == "") {
             continue;
+        }
+        else if (i > 1) {
+            s += ",";
         }
         var inputEventId = document.getElementById("lblinputEvent" + i).innerHTML;
 
@@ -96,7 +96,7 @@ function collectinputEventStr() {
     }
 
 
-    var s = s + "]}]}";
+    var s = s + "]}";
    // var serializedDiagram = JSON.stringify(s)
     return s;
     //document.getElementById("txtjson").value = s;
