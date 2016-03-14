@@ -4849,12 +4849,20 @@ function returnModelInfoInJasonFormat() {
     }
     //end locations
     outputJason += "]";
+    outputJason += captureInterfaceValues();
     outputJason += "  }";
 
     //remove //
     outputJason = outputJason.replace(/\n/g, "\\n")
     return outputJason;
     //alert(outputJason);
+}
+
+function captureInterfaceValues() {
+    var values = ",\"interface\": [";
+    values += collectinputEventStr();
+    values += "]"
+    return values;
 }
 
 function returnConditionJasonStrByText(txtString) {

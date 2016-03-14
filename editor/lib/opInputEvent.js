@@ -8,25 +8,25 @@ function addInputEvent()
     "<label id=\"lblinputEvent##number##\"> Input Event ##number## </label> <input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtinputEvent##number##\" /> " +
     "<select id=\"inputEventValueType##number##\"> " + 
                                       "<option value=\"any\">ANY</option>" + 
-                                      "<option value=\"saab\">BOOL</option>" + 
-                                      "<option value=\"opel\">BYTE</option>" + 
-                                      "<option value=\"audi\">DATE_AND_TIME</option>" + 
-                                      "<option value=\"any\">DINT</option>" + 
-                                      "<option value=\"saab\">DWORD</option>" + 
-                                      "<option value=\"opel\">INT</option>" + 
-                                      "<option value=\"audi\">LINT</option>" + 
-                                      "<option value=\"any\">LREAL</option>" + 
-                                      "<option value=\"saab\">LWORD</option>" + 
-                                      "<option value=\"opel\">REAL</option>" + 
-                                      "<option value=\"audi\">SINT</option>" + 
-                                      "<option value=\"any\">STRING</option>" + 
-                                      "<option value=\"saab\">TIME</option>" + 
-                                      "<option value=\"opel\">UDINT</option>" + 
-                                      "<option value=\"audi\">UINT</option>" + 
-                                      "<option value=\"any\">ULINT</option>" + 
-                                      "<option value=\"saab\">USINT</option>" + 
-                                      "<option value=\"opel\">WORD</option>" + 
-                                      "<option value=\"audi\">WSTRING</option>" + 
+                                      "<option value=\"bool\">BOOL</option>" + 
+                                      "<option value=\"byte\">BYTE</option>" + 
+                                      "<option value=\"date_and_time\">DATE_AND_TIME</option>" + 
+                                      "<option value=\"dint\">DINT</option>" + 
+                                      "<option value=\"word\">DWORD</option>" + 
+                                      "<option value=\"int\">INT</option>" + 
+                                      "<option value=\"lint\">LINT</option>" + 
+                                      "<option value=\"lreal\">LREAL</option>" + 
+                                      "<option value=\"lword\">LWORD</option>" + 
+                                      "<option value=\"real\">REAL</option>" + 
+                                      "<option value=\"sint\">SINT</option>" + 
+                                      "<option value=\"string\">STRING</option>" + 
+                                      "<option value=\"time\">TIME</option>" + 
+                                      "<option value=\"udint\">UDINT</option>" + 
+                                      "<option value=\"uint\">UINT</option>" + 
+                                      "<option value=\"ulint\">ULINT</option>" + 
+                                      "<option value=\"usint\">USINT</option>" + 
+                                      "<option value=\"word\">WORD</option>" + 
+                                      "<option value=\"wstring\">WSTRING</option>" + 
                                      "</select>" +
         "<input id=\"txtinputEventDependence##number##\" style=\"width:150px\" onfocus=\"this.value=''\" value=\"Enter event value here\" type=\"txt\" name=\"link\" /> " +
         "<input type=\"button\" style=\"width:40px\" onclick=\"removeinputEvent(##number##)\" id=\"btnRemoveinputEvent##number##\" value=\" - \"/> </div>";
@@ -79,7 +79,7 @@ function collectinputEventStr1()
 
 function collectinputEventStr() {
     // {inputEvents:[{id:inputEvent1,value:xxx,inputEventDependency:inputEvent2},{}]}
-    var s = "{'inputEvent':[{'number':'" + inputEventNubers + "'},{'inputEvents':[";
+    var s = "{\"inputEvent\":[{\"number\":\"" + inputEventNubers + "\"},{\"inputEvents\":[";
     for (var i = 1; i <= inputEventNubers; i++) {
         if (i > 1) {
             s += ",";
@@ -92,7 +92,7 @@ function collectinputEventStr() {
         var inputEventValue = document.getElementById("txtinputEvent" + i).value;
         var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
         var inputEventDependency = document.getElementById("txtinputEventDependence" + i).value;
-        s += "{'id':'" + inputEventId.trim() + "','value':'" + inputEventValue.trim() + "\",\"inputEventValueType\":\"" + inputEventValueType.trim() + "','inputEventDependency':'" + inputEventDependency.trim() + "'}";
+        s += "{\"id\":\"" + inputEventId.trim() + "\",\"value\":\"" + inputEventValue.trim() + "\",\"inputEventValueType\":\"" + inputEventValueType.trim() + "\",\"inputEventDependency\":\"" + inputEventDependency.trim() + "\"}";
     }
 
 
@@ -121,7 +121,7 @@ function collectinputEventStr11() {
     }
 
 
-    var s = s + "]}}";
+    var s = s + "]}]}";
     //var serializedDiagram = JSON.stringify(s)
     return s;
     //document.getElementById("txtjson").value = s;
@@ -166,25 +166,25 @@ function reRenderinputEvent(obj) {
     "<label id=\"lblinputEvent##number##\"> Input Event ##number## </label> <input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtinputEvent##number##\" /> " +
     "<select id=\"inputEventValueType##number##\"> " + 
                                       "<option value=\"any\">ANY</option>" + 
-                                      "<option value=\"saab\">BOOL</option>" + 
-                                      "<option value=\"opel\">BYTE</option>" + 
-                                      "<option value=\"audi\">DATE_AND_TIME</option>" + 
-                                      "<option value=\"any\">DINT</option>" + 
-                                      "<option value=\"saab\">DWORD</option>" + 
-                                      "<option value=\"opel\">INT</option>" + 
-                                      "<option value=\"audi\">LINT</option>" + 
-                                      "<option value=\"any\">LREAL</option>" + 
-                                      "<option value=\"saab\">LWORD</option>" + 
-                                      "<option value=\"opel\">REAL</option>" + 
-                                      "<option value=\"audi\">SINT</option>" + 
-                                      "<option value=\"any\">STRING</option>" + 
-                                      "<option value=\"saab\">TIME</option>" + 
-                                      "<option value=\"opel\">UDINT</option>" + 
-                                      "<option value=\"audi\">UINT</option>" + 
-                                      "<option value=\"any\">ULINT</option>" + 
-                                      "<option value=\"saab\">USINT</option>" + 
-                                      "<option value=\"opel\">WORD</option>" + 
-                                      "<option value=\"audi\">WSTRING</option>" + 
+                                      "<option value=\"bool\">BOOL</option>" + 
+                                      "<option value=\"byte\">BYTE</option>" + 
+                                      "<option value=\"date_and_time\">DATE_AND_TIME</option>" + 
+                                      "<option value=\"dint\">DINT</option>" + 
+                                      "<option value=\"word\">DWORD</option>" + 
+                                      "<option value=\"int\">INT</option>" + 
+                                      "<option value=\"lint\">LINT</option>" + 
+                                      "<option value=\"lreal\">LREAL</option>" + 
+                                      "<option value=\"lword\">LWORD</option>" + 
+                                      "<option value=\"real\">REAL</option>" + 
+                                      "<option value=\"sint\">SINT</option>" + 
+                                      "<option value=\"string\">STRING</option>" + 
+                                      "<option value=\"time\">TIME</option>" + 
+                                      "<option value=\"udint\">UDINT</option>" + 
+                                      "<option value=\"uint\">UINT</option>" + 
+                                      "<option value=\"ulint\">ULINT</option>" + 
+                                      "<option value=\"usint\">USINT</option>" + 
+                                      "<option value=\"word\">WORD</option>" + 
+                                      "<option value=\"wstring\">WSTRING</option>" + 
                                      "</select>" +
         "<input id=\"txtinputEventDependence##number##\" style=\"width:150px\" type=\"txt\" onfocus=\"this.value=''\" value=\"Enter event value here\" name=\"link\" /> " + 
         "<input type=\"button\" style=\"width:40px\" onclick=\"removeinputEvent(##number##)\" id=\"btnRemoveinputEvent##number##\" value=\" - \"/> </div>";
@@ -218,25 +218,25 @@ function reRenderinputEvent(obj) {
         "<label id=\"lblinputEvent##number##\"> inputEvent##number## </label> <input id=\"txtinputEvent##number##\" /> " +
         "<select id=\"inputEventValueType##number##\"> " + 
                                       "<option value=\"any\">ANY</option>" + 
-                                      "<option value=\"saab\">BOOL</option>" + 
-                                      "<option value=\"opel\">BYTE</option>" + 
-                                      "<option value=\"audi\">DATE_AND_TIME</option>" + 
-                                      "<option value=\"any\">DINT</option>" + 
-                                      "<option value=\"saab\">DWORD</option>" + 
-                                      "<option value=\"opel\">INT</option>" + 
-                                      "<option value=\"audi\">LINT</option>" + 
-                                      "<option value=\"any\">LREAL</option>" + 
-                                      "<option value=\"saab\">LWORD</option>" + 
-                                      "<option value=\"opel\">REAL</option>" + 
-                                      "<option value=\"audi\">SINT</option>" + 
-                                      "<option value=\"any\">STRING</option>" + 
-                                      "<option value=\"saab\">TIME</option>" + 
-                                      "<option value=\"opel\">UDINT</option>" + 
-                                      "<option value=\"audi\">UINT</option>" + 
-                                      "<option value=\"any\">ULINT</option>" + 
-                                      "<option value=\"saab\">USINT</option>" + 
-                                      "<option value=\"opel\">WORD</option>" + 
-                                      "<option value=\"audi\">WSTRING</option>" + 
+                                      "<option value=\"bool\">BOOL</option>" + 
+                                      "<option value=\"byte\">BYTE</option>" + 
+                                      "<option value=\"date_and_time\">DATE_AND_TIME</option>" + 
+                                      "<option value=\"dint\">DINT</option>" + 
+                                      "<option value=\"word\">DWORD</option>" + 
+                                      "<option value=\"int\">INT</option>" + 
+                                      "<option value=\"lint\">LINT</option>" + 
+                                      "<option value=\"lreal\">LREAL</option>" + 
+                                      "<option value=\"lword\">LWORD</option>" + 
+                                      "<option value=\"real\">REAL</option>" + 
+                                      "<option value=\"sint\">SINT</option>" + 
+                                      "<option value=\"string\">STRING</option>" + 
+                                      "<option value=\"time\">TIME</option>" + 
+                                      "<option value=\"udint\">UDINT</option>" + 
+                                      "<option value=\"uint\">UINT</option>" + 
+                                      "<option value=\"ulint\">ULINT</option>" + 
+                                      "<option value=\"usint\">USINT</option>" + 
+                                      "<option value=\"word\">WORD</option>" + 
+                                      "<option value=\"wstring\">WSTRING</option>" + 
                                      "</select>" +
             "<input id=\"txtinputEventDependence##number##\" type=\"txt\" onfocus=\"this.value=''\" value=\"Enter event value here\"  name=\"link\" />" +
             "<input type=\"button\" onclick=\"removeinputEvent(##number##)\" id=\"btnRemoveinputEvent##number##\" value=\" - \"/> </div>";
