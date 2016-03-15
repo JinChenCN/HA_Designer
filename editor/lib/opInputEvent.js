@@ -43,45 +43,23 @@ function addInputEvent()
     t += " <option value=\"Input Event" + inputEventNubers + "\"  />";
     document.getElementById('inputEvent_list').innerHTML = t;
 }
+
+
 function removeinputEvent(num)
 {
     document.getElementById("txtinputEvent" + num).value = "";
     document.getElementById("inputEventDiv" + num).style.display = "none";
 }
-function collectinputEventStr1()
-{
-    // {inputEvents:[{id:inputEvent1,value:xxx,inputEventDependency:inputEvent2},{}]}
-    var s = "{\"inputEvents\":[";
-    for (var i = 1; i <= inputEventNubers; i++)
-    {
-        if (i > 1)
-        {
-            s += ",";
-        }
-        if (document.getElementById("txtinputEvent" + i).value == "")
-        {
-            continue;
-        }
-        var inputEventId = document.getElementById("lbinputEvent" + i).innerHTML;
-                
-        var inputEventValue = document.getElementById("txtinputEvent" + i).value;
-        var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
-        var inputEventDependency = document.getElementById("txtinputEventDependence" + i).value;
-        s += "{\"id\":\"" + inputEventId.trim() + "\",\"value\":\"" + inputEventValue.trim() + "\",\"inputEventValueType\":\"" + inputEventValueType.trim() + "\",\"inputEventDependency\":\"" + inputEventDependency.trim() + "\"}";
-    }
-            
 
-    var s = s + "]}";
-    var serializedDiagram = JSON.stringify(s)
-    return serializedDiagram;
-    //document.getElementById("txtjson").value = s;
-}
 
 function collectinputEventStr() {
     // {inputEvents:[{id:inputEvent1,value:xxx,inputEventDependency:inputEvent2},{}]}
     var s = "{\"inputEvents\":[";
     for (var i = 1; i <= inputEventNubers; i++) {
+
         if (document.getElementById("txtinputEvent" + i).value == "") {
+            if ( (i!=1) && (document.getElementById("txtinputEvent" + (i+1)) != null) && (document.getElementById("txtinputEvent" + (i+1)).value != "")) 
+              { s += ",";}
             continue;
         }
         var inputEventId = document.getElementById("lbinputEvent" + i).innerHTML;
@@ -90,64 +68,13 @@ function collectinputEventStr() {
         var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
         var inputEventDependency = document.getElementById("txtinputEventDependence" + i).value;
         s += "{\"id\":\"" + inputEventId.trim() + "\",\"value\":\"" + inputEventValue.trim() + "\",\"inputEventValueType\":\"" + inputEventValueType.trim() + "\",\"inputEventDependency\":\"" + inputEventDependency.trim() + "\"}";
-        if (document.getElementById("txtinputEvent" + i+1) != null && document.getElementById("txtinputEvent" + i+1).value != "") {
-            s += ",";
-        }
+                    if ((document.getElementById("txtinputEvent" + (i+1)) != null) && (document.getElementById("txtinputEvent" + (i+1)).value != "")) 
+              { s += ",";}
     }
 
 
-    var s = s + "]}";
+    var s = s + "]},";
    // var serializedDiagram = JSON.stringify(s)
-    return s;
-    //document.getElementById("txtjson").value = s;
-}
-
-function collectinputEventStr11() {
-    // {inputEvents:[{id:inputEvent1,value:xxx,inputEventDependency:inputEvent2},{}]}
-    var s = "{##xx##inputEvent##xx##:{##xx##number##xx##:##xx##" + inputEventNubers + "##xx##,##xx##inputEvents##xx##:[";
-    for (var i = 1; i <= inputEventNubers; i++) {
-        if (i > 1) {
-            s += ",";
-        }
-        if (document.getElementById("txtinputEvent" + i).value == "") {
-            continue;
-        }
-        var inputEventId = document.getElementById("lbinputEvent" + i).innerHTML;
-
-        var inputEventValue = document.getElementById("txtinputEvent" + i).value;
-        var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
-        var inputEventDependency = document.getElementById("txtinputEventDependence" + i).value;
-        s += "{##xx##id##xx##:##xx##" + inputEventId.trim() + "##xx##,##xx##value##xx##:##xx##" + inputEventValue.trim() + "\",\"##xx##,##xx##inputEventValueType##xx##:##xx##\":\"" + inputEventValueType.trim() + "##xx##,##xx##inputEventDependency##xx##:##xx##" + inputEventDependency.trim() + "##xx##}";
-    }
-
-
-    var s = s + "]}]}";
-    //var serializedDiagram = JSON.stringify(s)
-    return s;
-    //document.getElementById("txtjson").value = s;
-}
-
-function collectinputEventStr2() {
-    // {inputEvents:[{id:inputEvent1,value:xxx,inputEventDependency:inputEvent2},{}]}
-    var s = "{inputEvent:{number:" + inputEventNubers + ",inputEvents:[";
-    for (var i = 1; i <= inputEventNubers; i++) {
-        if (i > 1) {
-            s += ",";
-        }
-        if (document.getElementById("txtinputEvent" + i).value == "") {
-            continue;
-        }
-        var inputEventId = document.getElementById("lbinputEvent" + i).innerHTML;
-
-        var inputEventValue = document.getElementById("txtinputEvent" + i).value;
-        var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
-        var inputEventDependency = document.getElementById("txtinputEventDependence" + i).value;
-        s += "{id:" + inputEventId.trim() + ",value:" + inputEventValue.trim() + ",inputEventValueType:" + inputEventValueType.trim()+ ",inputEventDependency:" + inputEventDependency.trim() + "}";
-    }
-
-
-    var s = s + "]}}";
-     
     return s;
     //document.getElementById("txtjson").value = s;
 }

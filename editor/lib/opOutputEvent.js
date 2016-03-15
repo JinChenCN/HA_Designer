@@ -48,40 +48,17 @@ function removeoutputEvent(num)
     document.getElementById("txtoutputEvent" + num).value = "";
     document.getElementById("outputEventDiv" + num).style.display = "none";
 }
-function collectoutputEventStr1()
-{
-    // {outputEvents:[{id:outputEvent1,value:xxx,outputEventDependency:outputEvent2},{}]}
-    var s = "{\"outputEvents\":[";
-    for (var i = 1; i <= outputEventNubers; i++)
-    {
-        if (i > 1)
-        {
-            s += ",";
-        }
-        if (document.getElementById("txtoutputEvent" + i).value == "")
-        {
-            continue;
-        }
-        var outputEventId = document.getElementById("lbloutputEvent" + i).innerHTML;
-                
-        var outputEventValue = document.getElementById("txtoutputEvent" + i).value;
-        var outputEventValueType = document.getElementById("outputEventValueType" + i).value;
-        var outputEventDependency = document.getElementById("txtoutputEventDependence" + i).value;
-        s += "{\"id\":\"" + outputEventId.trim() + "\",\"value\":\"" + outputEventValue.trim() + "\",\"outputEventValueType\":\"" + outputEventValueType.trim() + "\",\"outputEventDependency\":\"" + outputEventDependency.trim() + "\"}";
-    }
-            
 
-    var s = s + "]}";
-    var serializedDiagram = JSON.stringify(s)
-    return serializedDiagram;
-    //document.getElementById("txtjson").value = s;
-}
 
 function collectoutputEventStr() {
     // {outputEvents:[{id:outputEvent1,value:xxx,outputEventDependency:outputEvent2},{}]}
-    var s = ",{\"outputEvents\":[";
+    var s = "{\"outputEvents\":[";
     for (var i = 1; i <= outputEventNubers; i++) {
-        if (document.getElementById("txtoutputEvent" + i).value == "") {
+        if (document.getElementById("txtoutputEvent" + i).value == "") {                
+        if ( (i!=1) && (document.getElementById("txtoutputEvent" + (i+1)) != null) && (document.getElementById("txtoutputEvent" + (i+1)).value != "")) 
+        {
+            s += ",";
+        }
             continue;
         }
         var outputEventId = document.getElementById("lboutputEvent" + i).innerHTML;
@@ -90,7 +67,8 @@ function collectoutputEventStr() {
         var outputEventValueType = document.getElementById("outputEventValueType" + i).value;
         var outputEventDependency = document.getElementById("txtoutputEventDependence" + i).value;
         s += "{\"id\":\"" + outputEventId.trim() + "\",\"value\":\"" + outputEventValue.trim() + "\",\"outputEventValueType\":\"" + outputEventValueType.trim() + "\",\"outputEventDependency\":\"" + outputEventDependency.trim() + "\"}";
-        if (document.getElementById("txtoutputEvent" + i+1) != null && document.getElementById("txtoutputEvent" + i+1).value != "") {
+        if ((document.getElementById("txtoutputEvent" + (i+1)) != null) && (document.getElementById("txtoutputEvent" + (i+1)).value != "")) 
+        {
             s += ",";
         }
     }
@@ -102,55 +80,6 @@ function collectoutputEventStr() {
     //document.getElementById("txtjson").value = s;
 }
 
-function collectoutputEventStr11() {
-    // {outputEvents:[{id:outputEvent1,value:xxx,outputEventDependency:outputEvent2},{}]}
-    var s = "{##xx##outputEvent##xx##:{##xx##number##xx##:##xx##" + outputEventNubers + "##xx##,##xx##outputEvents##xx##:[";
-    for (var i = 1; i <= outputEventNubers; i++) {
-        if (i > 1) {
-            s += ",";
-        }
-        if (document.getElementById("txtoutputEvent" + i).value == "") {
-            continue;
-        }
-        var outputEventId = document.getElementById("lbloutputEvent" + i).innerHTML;
-
-        var outputEventValue = document.getElementById("txtoutputEvent" + i).value;
-        var outputEventValueType = document.getElementById("outputEventValueType" + i).value;
-        var outputEventDependency = document.getElementById("txtoutputEventDependence" + i).value;
-        s += "{##xx##id##xx##:##xx##" + outputEventId.trim() + "##xx##,##xx##value##xx##:##xx##" + outputEventValue.trim() + "\",\"##xx##,##xx##outputEventValueType##xx##:##xx##\":\"" + outputEventValueType.trim() + "##xx##,##xx##outputEventDependency##xx##:##xx##" + outputEventDependency.trim() + "##xx##}";
-    }
-
-
-    var s = s + "]}]}";
-    //var serializedDiagram = JSON.stringify(s)
-    return s;
-    //document.getElementById("txtjson").value = s;
-}
-
-function collectoutputEventStr2() {
-    // {outputEvents:[{id:outputEvent1,value:xxx,outputEventDependency:outputEvent2},{}]}
-    var s = "{outputEvent:{number:" + outputEventNubers + ",outputEvents:[";
-    for (var i = 1; i <= outputEventNubers; i++) {
-        if (i > 1) {
-            s += ",";
-        }
-        if (document.getElementById("txtoutputEvent" + i).value == "") {
-            continue;
-        }
-        var outputEventId = document.getElementById("lbloutputEvent" + i).innerHTML;
-
-        var outputEventValue = document.getElementById("txtoutputEvent" + i).value;
-        var outputEventValueType = document.getElementById("outputEventValueType" + i).value;
-        var outputEventDependency = document.getElementById("txtoutputEventDependence" + i).value;
-        s += "{id:" + outputEventId.trim() + ",value:" + outputEventValue.trim() + ",outputEventValueType:" + outputEventValueType.trim()+ ",outputEventDependency:" + outputEventDependency.trim() + "}";
-    }
-
-
-    var s = s + "]}}";
-     
-    return s;
-    //document.getElementById("txtjson").value = s;
-}
 
 function reRenderoutputEvent(obj) {
     //var data = returnMoutputEventlInfoInJasonFormat();
