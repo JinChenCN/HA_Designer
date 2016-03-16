@@ -5,8 +5,14 @@ function addoutputEvent()
 {
     outputEventNubers++;
     var s = "<div id=\"outputEventDiv##number##\">" +
-    "<label id=\"lboutputEvent##number##\"> Output Event ##number## </label> <input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtoutputEvent##number##\" /> " +
-    "<select id=\"outputEventValueType##number##\"> " + 
+    "<label id=\"lboutputEvent##number##\"> Output Event ##number## </label> " + 
+        "<select id=\"outputEventType##number##\"> " + 
+                                      "<option value=\"event\">EVENT</option>" +
+                                      "<option value=\"any\">ANY</option>" + 
+                                      "<option value=\"custom\">CUSTOM</option>" +                                     
+                                     "</select>" +
+    "<input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtoutputEvent##number##\" /> " +
+"<select id=\"outputEventValueType##number##\"> " + 
                                       "<option value=\"any\">ANY</option>" + 
                                       "<option value=\"bool\">BOOL</option>" + 
                                       "<option value=\"byte\">BYTE</option>" + 
@@ -62,11 +68,11 @@ function collectoutputEventStr() {
             continue;
         }
         var outputEventId = document.getElementById("lboutputEvent" + i).innerHTML;
-
+        var outputEventType = document.getElementById("outputEventType" + i).value;
         var outputEventValue = document.getElementById("txtoutputEvent" + i).value;
         var outputEventValueType = document.getElementById("outputEventValueType" + i).value;
         var outputEventDependency = document.getElementById("txtoutputEventDependence" + i).value;
-        s += "{\"id\":\"" + outputEventId.trim() + "\",\"value\":\"" + outputEventValue.trim() + "\",\"outputEventValueType\":\"" + outputEventValueType.trim() + "\",\"outputEventDependency\":\"" + outputEventDependency.trim() + "\"}";
+        s += "{\"id\":\"" + outputEventId.trim() + "\",\"eventType\":\"" + outputEventType.trim() + "\",\"eventName\":\"" + outputEventValue.trim() + "\",\"outputEventValueType\":\"" + outputEventValueType.trim() + "\",\"outputEventDependency\":\"" + outputEventDependency.trim() + "\"}";
         if ((document.getElementById("txtoutputEvent" + (i+1)) != null) && (document.getElementById("txtoutputEvent" + (i+1)).value != "")) 
         {
             s += ",";
@@ -94,26 +100,9 @@ function reRenderoutputEvent(obj) {
     var s = "<div id=\"outputEventDiv##number##\">" +
     "<label id=\"lbloutputEvent##number##\"> Input Event ##number## </label> <input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtoutputEvent##number##\" /> " +
     "<select id=\"outputEventValueType##number##\"> " + 
+                                      "<option value=\"event\">EVENT</option>" +
                                       "<option value=\"any\">ANY</option>" + 
-                                      "<option value=\"bool\">BOOL</option>" + 
-                                      "<option value=\"byte\">BYTE</option>" + 
-                                      "<option value=\"date_and_time\">DATE_AND_TIME</option>" + 
-                                      "<option value=\"dint\">DINT</option>" + 
-                                      "<option value=\"word\">DWORD</option>" + 
-                                      "<option value=\"int\">INT</option>" + 
-                                      "<option value=\"lint\">LINT</option>" + 
-                                      "<option value=\"lreal\">LREAL</option>" + 
-                                      "<option value=\"lword\">LWORD</option>" + 
-                                      "<option value=\"real\">REAL</option>" + 
-                                      "<option value=\"sint\">SINT</option>" + 
-                                      "<option value=\"string\">STRING</option>" + 
-                                      "<option value=\"time\">TIME</option>" + 
-                                      "<option value=\"udint\">UDINT</option>" + 
-                                      "<option value=\"uint\">UINT</option>" + 
-                                      "<option value=\"ulint\">ULINT</option>" + 
-                                      "<option value=\"usint\">USINT</option>" + 
-                                      "<option value=\"word\">WORD</option>" + 
-                                      "<option value=\"wstring\">WSTRING</option>" + 
+                                      "<option value=\"custom\">CUSTOM</option>" +                                     
                                      "</select>" +
         "<input id=\"txtoutputEventDependence##number##\" style=\"width:150px\" type=\"txt\" onfocus=\"this.value=''\" value=\"Enter event value here\" name=\"link\" /> " + 
         "<input type=\"button\" style=\"width:40px\" onclick=\"removeoutputEvent(##number##)\" id=\"btnRemoveoutputEvent##number##\" value=\" - \"/> </div>";
@@ -144,8 +133,15 @@ function reRenderoutputEvent(obj) {
         document.getElementById('outputEvent_list').innerHTML = "";
 
         var s = "<div id=\"outputEventDiv##number##\">" +
-        "<label id=\"lbloutputEvent##number##\"> outputEvent##number## </label> <input id=\"txtoutputEvent##number##\" /> " +
+        "<label id=\"lbloutputEvent##number##\"> outputEvent##number## </label> " + 
         "<select id=\"outputEventValueType##number##\"> " + 
+                                      "<option value=\"any\">ANY</option>" + 
+                                      "<option value=\"event\">EVENT</option>" +
+                                      "<option value=\"any\">ANY</option>" + 
+                                      "<option value=\"custom\">CUSTOM</option>" +                                     
+                                     "</select>" +
+        " <input id=\"txtoutputEvent##number##\" /> " +
+         "<select id=\"outputEventValueType##number##\"> " + 
                                       "<option value=\"any\">ANY</option>" + 
                                       "<option value=\"bool\">BOOL</option>" + 
                                       "<option value=\"byte\">BYTE</option>" + 
@@ -167,6 +163,7 @@ function reRenderoutputEvent(obj) {
                                       "<option value=\"word\">WORD</option>" + 
                                       "<option value=\"wstring\">WSTRING</option>" + 
                                      "</select>" +
+        
             "<input id=\"txtoutputEventDependence##number##\" type=\"txt\" onfocus=\"this.value=''\" value=\"Enter event value here\"  name=\"link\" />" +
             "<input type=\"button\" onclick=\"removeoutputEvent(##number##)\" id=\"btnRemoveoutputEvent##number##\" value=\" - \"/> </div>";
         document.getElementById("outputEventPanel").innerHTML = "";

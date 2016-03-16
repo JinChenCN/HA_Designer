@@ -4860,7 +4860,8 @@ function returnModelInfoInJasonFormat() {
 
 function captureInterfaceValues() {
     var values = ",\"interface\": [";
-    values += collectExternalVarableStr();
+    values += collectExternalVarableInputStr();
+    values += collectExternalVarableOutputStr();
     values += collectinputEventStr();
     values += collectoutputEventStr();
     values += "]"

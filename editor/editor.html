@@ -85,7 +85,8 @@
     <script type="text/javascript" src="./lib/opode.js"></script>
     <script type="text/javascript" src="./lib/opInputEvent.js"></script>
     <script type="text/javascript" src="./lib/opOutputEvent.js"></script>
-    <script type="text/javascript" src="./lib/opExternalVarable.js"></script>
+    <script type="text/javascript" src="./lib/opExternalVarableInput.js"></script>
+    <script type="text/javascript" src="./lib/opExternalVarableOutput.js"></script>
     <script type="text/javascript" src="./lib/FileSaver.js"></script>
     <script type="text/javascript" src="./lib/Blob.js"></script>
 
@@ -464,22 +465,23 @@
                                 <th colspan="1" align="left">Interface</th>                                  
                             </tr>
                             <tr>
-                                <th style="width:50%; text-align: left; padding-top: 10px">External Variables         
-                                    <input type="button" value="+ExternalVarable" onclick="addExternalVarable();" /> 
-                                    <input type="button" value="showS" style="display:none" onclick="collectExternalVarableStr()" />
+                                <th style="width:50%; text-align: left; padding-top: 10px">External Variables Input        
+                                    <input type="button" value="+External Varable Input" onclick="addExternalVarableInput();" /> 
+                                    <input type="button" value="showS" style="display:none" onclick="collectExternalVarableInputStr()" />
                                 </th>                             
                          <td></td>
                             </tr>
+                             
                          <td style="width:100%" > 
                                     
-                            <datalist id="ExternalVarable_list">
-                                <option value="External Varable 1" />
+                            <datalist id="ExternalVarableInput_list">
+                                <option value="External Varable Input 1" />
                             </datalist>
                             <div>  </div>
-                            <div id="ExternalVarablePanel">
-                                <div id="ExternalVarableDiv1">
-                                    <label id="lbExternalVarable1"> External Varable 1 </label> 
-                                    <select id="ExternalVarableValueType1">
+                            <div id="ExternalVarableInputPanel">
+                                <div id="ExternalVarableInputDiv1">
+                                    <label id="lbExternalVarableInput1"> External Varable Input 1 </label> 
+                                    <select id="ExternalVarableInputValueType1">
                                       <option value="any">ANY</option>
                                       <option value="bool">BOOL</option>
                                       <option value="byte">BYTE</option>
@@ -501,8 +503,52 @@
                                       <option value="word">WORD</option>
                                       <option value="wstring">WSTRING</option>
                                      </select>
-                                     <input id="txtExternalVarable1" onfocus="this.value=''" value="Enter external varable value here" style="width:200px" /> 
-                                    <input type="button" onclick="removeExternalVarable(1)" id="btnExternalVarable1" style="width:40px" value="-" />
+                                     <input id="txtExternalVarableInput1" onfocus="this.value=''" value="Enter external varable input value here" style="width:200px" /> 
+                                    <input type="button" onclick="removeExternalVarableInput(1)" id="btnExternalVarableInput1" style="width:40px" value="-" />
+                                </div>
+                            </div>
+
+                        </td>
+                        <tr>
+                                <th style="width:50%; text-align: left; padding-top: 10px">External Variables Output        
+                                    <input type="button" value="+External Varable Output" onclick="addExternalVarableOutput();" /> 
+                                    <input type="button" value="showS" style="display:none" onclick="collectExternalVarableOutputStr()" />
+                                </th>                             
+                         <td></td>
+                            </tr>
+                            <td style="width:100%" > 
+                                    
+                            <datalist id="ExternalVarableOutput_list">
+                                <option value="External Varable Output 1" />
+                            </datalist>
+                            <div>  </div>
+                            <div id="ExternalVarableOutputPanel">
+                                <div id="ExternalVarableOutputDiv1">
+                                    <label id="lbExternalVarableOutput1"> External Varable Output 1 </label> 
+                                    <select id="ExternalVarableOutputValueType1">
+                                      <option value="any">ANY</option>
+                                      <option value="bool">BOOL</option>
+                                      <option value="byte">BYTE</option>
+                                      <option value="date_and_time">DATE_AND_TIME</option>
+                                      <option value="dint">DINT</option>
+                                      <option value="dword">DWORD</option>
+                                      <option value="int">INT</option>
+                                      <option value="lint">LINT</option>
+                                      <option value="lreal">LREAL</option>
+                                      <option value="lword">LWORD</option>
+                                      <option value="real">REAL</option>
+                                      <option value="sint">SINT</option>
+                                      <option value="string">STRING</option>
+                                      <option value="time">TIME</option>
+                                      <option value="udint">UDINT</option>
+                                      <option value="uint">UINT</option>
+                                      <option value="ulint">ULINT</option>
+                                      <option value="usint">USINT</option>
+                                      <option value="word">WORD</option>
+                                      <option value="wstring">WSTRING</option>
+                                     </select>
+                                     <input id="txtExternalVarableOutput1" onfocus="this.value=''" value="Enter external varable output value here" style="width:200px" /> 
+                                    <input type="button" onclick="removeExternalVarableOutput(1)" id="btnExternalVarableOutput1" style="width:40px" value="-" />
                                 </div>
                             </div>
 
@@ -523,8 +569,13 @@
                             <div id="inputEventPanel">
                                 <div id="inputEventDiv1">
                                     <label id="lbinputEvent1"> Input Event 1 </label> 
+                                     <select id="inputEventType1">
+                                      <option value="event">EVENT</option>
+                                      <option value="any">ANY</option>
+                                      <option value="custom">CUSTOM</option>
+                                     </select>
                                     <input id="txtinputEvent1" style="width:200px" onfocus="this.value=''" value="Enter event name here" /> 
-                                    <select id="inputEventValueType1">
+                                     <select id="inputEventValueType1">
                                       <option value="any">ANY</option>
                                       <option value="bool">BOOL</option>
                                       <option value="byte">BYTE</option>
@@ -570,6 +621,11 @@
                             <div id="outputEventPanel">
                                 <div id="outputEventDiv1">
                                     <label id="lboutputEvent1"> Output Event 1 </label> 
+                                    <select id="outputEventType1">
+                                      <option value="event">EVENT</option>
+                                      <option value="any">ANY</option>
+                                      <option value="custom">CUSTOM</option>
+                                     </select>
                                     <input id="txtoutputEvent1" style="width:200px" onfocus="this.value=''" value="Enter event name here" /> 
                                     <select id="outputEventValueType1">
                                       <option value="any">ANY</option>
