@@ -6,7 +6,7 @@ function addOde()
     odeNubers++;
     var s = "<div id=\"odeDiv##number##\">" +
     "<label id=\"lblode##number##\"> ode##number## </label> <input style=\"width:200px\" id=\"txtOde##number##\" /> " +
-        "<input id=\"txtDependence##number##\" style=\"width:70px\" type=\"txt\" list=\"ode_list\" name=\"link\" /> <input type=\"button\" style=\"width:40px\" onclick=\"removeOde(##number##)\" id=\"btnRemoveOde##number##\" value=\" - \"/> </div>";
+        "<input id=\"txtDependence##number##\" style=\"width:70px\" type=\"txt\" list=\"ode_list\" name=\"link\" /> <input type=\"button\" style=\"width:50px\" onclick=\"removeOde(##number##)\" id=\"btnRemoveOde##number##\" value=\" Delete \"/> </div>";
     s = s.replace(/##number##/g, odeNubers);
     var lastOdeDiv = "odeDiv" + (odeNubers-1);
     document.getElementById(lastOdeDiv).insertAdjacentHTML("afterEnd", s);
@@ -137,7 +137,7 @@ function reRenderOde(obj) {
     var num = obj.odes.length;
     var s = "<div id=\"odeDiv##number##\">" +
     "<label id=\"lblode##number##\"> ode##number## </label> <input id=\"txtOde##number##\" /> " +
-        "<input id=\"txtDependence##number##\" type=\"txt\" list=\"ode_list\" name=\"link\" /> <input type=\"button\" onclick=\"removeOde(##number##)\" id=\"btnRemoveOde##number##\" value=\" - \"/> </div>";
+        "<input id=\"txtDependence##number##\" type=\"txt\" list=\"ode_list\" name=\"link\" /> <input type=\"button\" onclick=\"removeOde(##number##)\" id=\"btnRemoveOde##number##\" value=\" Delete \"/> </div>";
     document.getElementById("odePanel").innerHTML = "";
     for (var i = 0; i < num; i++) {
         var odeid = obj.odes[i].id;
@@ -165,7 +165,7 @@ function reRenderOde(obj) {
 
         var s = "<div id=\"odeDiv##number##\">" +
         "<label id=\"lblode##number##\"> ode##number## </label> <input id=\"txtOde##number##\" /> " +
-            "<input id=\"txtDependence##number##\" type=\"txt\" list=\"ode_list\" name=\"link\" /> <input type=\"button\" onclick=\"removeOde(##number##)\" id=\"btnRemoveOde##number##\" value=\" - \"/> </div>";
+            "<input id=\"txtDependence##number##\" type=\"txt\" list=\"ode_list\" name=\"link\" /> <input type=\"button\" onclick=\"removeOde(##number##)\" id=\"btnRemoveOde##number##\" value=\" Delete \"/> </div>";
         document.getElementById("odePanel").innerHTML = "";
          
             //var odeid = "";

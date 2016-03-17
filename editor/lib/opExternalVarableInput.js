@@ -28,8 +28,8 @@ function addExternalVarableInput()
                                       "<option value=\"word\">WORD</option>" + 
                                       "<option value=\"wstring\">WSTRING</option>" + 
                                      "</select>" +
-        "<input id=\"txtExternalVarableInput##number##\" style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter external varable input value here\" type=\"txt\" name=\"link\" /> " +
-        "<input type=\"button\" style=\"width:40px\" onclick=\"removeExternalVarableInput(##number##)\" id=\"btnExternalVarableInput##number##\" value=\" - \"/> </div>";
+        "<input id=\"txtExternalVarableInput##number##\" style=\"width:200px\" type=\"txt\" name=\"link\" /> " +
+        "<input type=\"button\" style=\"width:50px\" onclick=\"removeExternalVarableInput(##number##)\" id=\"btnExternalVarableInput##number##\" value=\" Delete \"/> </div>";
     s = s.replace(/##number##/g, externalVarableInputNumbers);
     var lastExternalVarableInputDiv = "ExternalVarableInputDiv" + (externalVarableInputNumbers-1);
     document.getElementById(lastExternalVarableInputDiv).insertAdjacentHTML("afterEnd", s);

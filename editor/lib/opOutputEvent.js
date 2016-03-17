@@ -11,31 +11,8 @@ function addoutputEvent()
                                       "<option value=\"any\">ANY</option>" + 
                                       "<option value=\"custom\">CUSTOM</option>" +                                     
                                      "</select>" +
-    "<input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtoutputEvent##number##\" /> " +
-"<select id=\"outputEventValueType##number##\"> " + 
-                                      "<option value=\"any\">ANY</option>" + 
-                                      "<option value=\"bool\">BOOL</option>" + 
-                                      "<option value=\"byte\">BYTE</option>" + 
-                                      "<option value=\"date_and_time\">DATE_AND_TIME</option>" + 
-                                      "<option value=\"dint\">DINT</option>" + 
-                                      "<option value=\"word\">DWORD</option>" + 
-                                      "<option value=\"int\">INT</option>" + 
-                                      "<option value=\"lint\">LINT</option>" + 
-                                      "<option value=\"lreal\">LREAL</option>" + 
-                                      "<option value=\"lword\">LWORD</option>" + 
-                                      "<option value=\"real\">REAL</option>" + 
-                                      "<option value=\"sint\">SINT</option>" + 
-                                      "<option value=\"string\">STRING</option>" + 
-                                      "<option value=\"time\">TIME</option>" + 
-                                      "<option value=\"udint\">UDINT</option>" + 
-                                      "<option value=\"uint\">UINT</option>" + 
-                                      "<option value=\"ulint\">ULINT</option>" + 
-                                      "<option value=\"usint\">USINT</option>" + 
-                                      "<option value=\"word\">WORD</option>" + 
-                                      "<option value=\"wstring\">WSTRING</option>" + 
-                                     "</select>" +
-        "<input id=\"txtoutputEventDependence##number##\" style=\"width:150px\" onfocus=\"this.value=''\" value=\"Enter event value here\" type=\"txt\" name=\"link\" /> " +
-        "<input type=\"button\" style=\"width:40px\" onclick=\"removeoutputEvent(##number##)\" id=\"btnRemoveoutputEvent##number##\" value=\" - \"/> </div>";
+    "<input style=\"width:200px\" id=\"txtoutputEvent##number##\" /> " +
+        "<input type=\"button\" style=\"width:50px\" onclick=\"removeoutputEvent(##number##)\" id=\"btnRemoveoutputEvent##number##\" value=\" Delete \"/> </div>";
     s = s.replace(/##number##/g, outputEventNubers);
     var lastoutputEventDiv = "outputEventDiv" + (outputEventNubers-1);
     document.getElementById(lastoutputEventDiv).insertAdjacentHTML("afterEnd", s);
@@ -98,13 +75,13 @@ function reRenderoutputEvent(obj) {
     var obj = obj[1];
     var num = obj.outputEvents.length;
     var s = "<div id=\"outputEventDiv##number##\">" +
-    "<label id=\"lbloutputEvent##number##\"> Input Event ##number## </label> <input style=\"width:200px\" onfocus=\"this.value=''\" value=\"Enter event name here\" id=\"txtoutputEvent##number##\" /> " +
+    "<label id=\"lbloutputEvent##number##\"> Input Event ##number## </label> <input style=\"width:200px\" id=\"txtoutputEvent##number##\" /> " +
     "<select id=\"outputEventValueType##number##\"> " + 
                                       "<option value=\"event\">EVENT</option>" +
                                       "<option value=\"any\">ANY</option>" + 
                                       "<option value=\"custom\">CUSTOM</option>" +                                     
                                      "</select>" +
-        "<input id=\"txtoutputEventDependence##number##\" style=\"width:150px\" type=\"txt\" onfocus=\"this.value=''\" value=\"Enter event value here\" name=\"link\" /> " + 
+        "<input id=\"txtoutputEventDependence##number##\" style=\"width:150px\" type=\"txt\" name=\"link\" /> " + 
         "<input type=\"button\" style=\"width:40px\" onclick=\"removeoutputEvent(##number##)\" id=\"btnRemoveoutputEvent##number##\" value=\" - \"/> </div>";
     document.getElementById("outputEventPanel").innerHTML = "";
     for (var i = 0; i < num; i++) {
@@ -164,7 +141,7 @@ function reRenderoutputEvent(obj) {
                                       "<option value=\"wstring\">WSTRING</option>" + 
                                      "</select>" +
         
-            "<input id=\"txtoutputEventDependence##number##\" type=\"txt\" onfocus=\"this.value=''\" value=\"Enter event value here\"  name=\"link\" />" +
+            "<input id=\"txtoutputEventDependence##number##\" type=\"txt\"  name=\"link\" />" +
             "<input type=\"button\" onclick=\"removeoutputEvent(##number##)\" id=\"btnRemoveoutputEvent##number##\" value=\" - \"/> </div>";
         document.getElementById("outputEventPanel").innerHTML = "";
          
