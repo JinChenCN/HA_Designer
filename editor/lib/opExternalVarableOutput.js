@@ -5,7 +5,7 @@ function addExternalVarableOutput()
 {
     ExternalVarableOutputNumbers++;
     var s = "<div id=\"ExternalVarableOutputDiv##number##\">" +
-    "<label id=\"lbExternalVarableOutput##number##\"> External Varable Output##number## </label> " +
+    "<label id=\"lbExternalVarableOutput##number##\"> External Varable Output ##number## </label> " +
     "<select id=\"ExternalVarableOutputValueType##number##\"> " + 
                                       "<option value=\"any\">ANY</option>" + 
                                       "<option value=\"bool\">BOOL</option>" + 
@@ -33,12 +33,31 @@ function addExternalVarableOutput()
     s = s.replace(/##number##/g, ExternalVarableOutputNumbers);
     var lastExternalVarableOutputDiv = "ExternalVarableOutputDiv" + (ExternalVarableOutputNumbers-1);
     document.getElementById(lastExternalVarableOutputDiv).insertAdjacentHTML("afterEnd", s);
+
+    for (var i = 1; i <= 20; i++) {
+      if (document.getElementById("txtoutputEvent" + i) == null) {continue;}
+      var addValue = "<input type=\"checkbox\" id=\"outputEventValue" + i + "variable##number##\" name=\"ExternalVarableOutput##number##\" value=\"ExternalVarableOutput##number##\"><label name=\"lboutputEventValue##number##\">External Varable Output ##number##<br></label>";
+      addValue = addValue.replace(/##number##/g, ExternalVarableOutputNumbers);
+
+      var valueDiv = document.getElementById('outputEventValues' + i);
+      valueDiv.innerHTML = valueDiv.innerHTML + addValue;
+    }
 }
 
 function removeExternalVarableOutput(num)
 {
     document.getElementById("txtExternalVarableOutput" + num).value = "";
     document.getElementById("ExternalVarableOutputDiv" + num).style.display = "none";
+    
+    document.getElementsByName("lboutputEventValue" + num).forEach(remove());
+    //document.getElementsByName("ExternalVarableOutput" + num).remove();
+    for (var i = 0; i < document.getElementsByName("lboutputEventValue" + num).length; i++) {
+      document.getElementsByName("lboutputEventValue" + num)[i].remove();
+    }
+    //document.getElementsByName("lbinputEventValue" + num).remove();
+    for (var i = 0; i < document.getElementsByName("lbinputEventValue" + num).length; i++) {
+      document.getElementsByName("ExternalVarableOutput" + num)[i].remove();
+    }
 }
 
 function collectExternalVarableOutputStr() {

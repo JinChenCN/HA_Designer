@@ -500,7 +500,7 @@
                                       <option value="word">WORD</option>
                                       <option value="wstring">WSTRING</option>
                                      </select>
-                                     <input id="txtExternalVarableInput1" style="width:200px" /> 
+                                     <input id="txtExternalVarableInput1" onclick="associateToEventPanel(this)" style="width:200px" /> 
                                     <input type="button" onclick="removeExternalVarableInput(1)" id="btnExternalVarableInput1" style="width:50px" value="Delete" />
                                 </div>
                             </div>
@@ -567,6 +567,10 @@
                                      </select>                               
                                     <input id="txtinputEvent1" style="width:200px" />    
                                     <input type="button" onclick="removeinputEvent(1)" id="btnInputEvent1" style="width:50px" value="Delete" />
+                                    <div id="inputEventValues1", style="padding-left:30px">
+                                        <label> Associated Values: </label> <br>
+                                    <input type="checkbox" id="inputEventValue1" value="ExternalVarableInput1"><label id="lbinputEventValue1">External Varable Input 1<br></label>
+                                </div>
                                 </div>
                             </div>
 
@@ -592,6 +596,10 @@
                                      </select> 
                                      <input id="txtoutputEvent1" style="width:200px" />                                   
                                     <input type="button" onclick="removeoutputEvent(1)" id="btnoutputEvent1" style="width:50px" value="Delete" />
+                                    <div id="outputEventValues1", style="padding-left:30px">
+                                        <label> Associated Values: </label> <br>
+                                    <input type="checkbox" id="outputEventValue1" value="ExternalVarableOutput1"><label id="lboutputEventValue1">External Varable Output 1<br></label> 
+                                </div>
                                 </div>
                             </div>
 

@@ -13,18 +13,16 @@ function addoutputEvent()
                                      "</select>" +
     "<input style=\"width:200px\" id=\"txtoutputEvent##number##\" /> " +
         "<input type=\"button\" style=\"width:50px\" onclick=\"removeoutputEvent(##number##)\" id=\"btnRemoveoutputEvent##number##\" value=\" Delete \"/> </div>";
+         
     s = s.replace(/##number##/g, outputEventNubers);
     var lastoutputEventDiv = "outputEventDiv" + (outputEventNubers-1);
     document.getElementById(lastoutputEventDiv).insertAdjacentHTML("afterEnd", s);
-    //document.getElementById("url_list")
-         
-    // var options = outputEvent_list.getElementsByTagName("option");
-    // outputEvent_list.appendChild(" <option value=\"outputEvent" + outputEventNubers + "\"  />");
-    // var opt = document.createElement('option');
-    // opt.value = "outputEvent" + outputEventNubers; 
-    var t = document.getElementById('outputEvent_list').innerHTML; //.options.add(opt);
-    t += " <option value=\"Input Event" + outputEventNubers + "\"  />";
-    document.getElementById('outputEvent_list').innerHTML = t;
+
+    var v = "<div id=\"outputEventValues##number##\", style=\"padding-left:30px\">" +
+         " <label> Associated Values: </label> <br>";
+     v = v.replace(/##number##/g, inputEventNubers);
+    var valueDiv = document.getElementById('outputEventDiv' + outputEventNubers);
+      valueDiv.innerHTML = valueDiv.innerHTML + v;
 }
 
 function removeoutputEvent(num)

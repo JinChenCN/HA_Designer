@@ -16,6 +16,12 @@ function addInputEvent()
     s = s.replace(/##number##/g, inputEventNubers);
     var lastinputEventDiv = "inputEventDiv" + (inputEventNubers-1);
     document.getElementById(lastinputEventDiv).insertAdjacentHTML("afterEnd", s);
+
+    var v = "<div id=\"inputEventValues1##number##\", style=\"padding-left:30px\">" +
+         " <label> Associated Values: </label> <br>";
+     v = v.replace(/##number##/g, inputEventNubers);
+    var valueDiv = document.getElementById('inputEventDiv' + inputEventNubers);
+      valueDiv.innerHTML = valueDiv.innerHTML + v;
 }
 
 
