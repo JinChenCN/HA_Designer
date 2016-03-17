@@ -20,9 +20,19 @@ function addoutputEvent()
 
     var v = "<div id=\"outputEventValues##number##\", style=\"padding-left:30px\">" +
          " <label> Associated Values: </label> <br>";
-     v = v.replace(/##number##/g, inputEventNubers);
+     v = v.replace(/##number##/g, outputEventNubers);
     var valueDiv = document.getElementById('outputEventDiv' + outputEventNubers);
       valueDiv.innerHTML = valueDiv.innerHTML + v;
+
+    for (var i = 1; i <= 20; i++) {
+      if (document.getElementById("txtExternalVarableOutput" + i) == null) 
+        {continue;}
+      var addValue = "<input type=\"checkbox\" id=\"outputEventValue" + ExternalVarableOutputNumbers + "variable##number##\" name=\"ExternalVarableOutput##number##\" value=\"ExternalVarableOutput##number##\"><label name=\"lboutputEventValue##number##\">External Varable Output ##number##<br></label>";
+      addValue = addValue.replace(/##number##/g, i);
+
+      var valueDiv = document.getElementById('outputEventValues' + ExternalVarableOutputNumbers);
+      valueDiv.innerHTML = valueDiv.innerHTML + addValue;
+    }
 }
 
 function removeoutputEvent(num)
