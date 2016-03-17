@@ -36,12 +36,10 @@ function collectinputEventStr() {
               { s += ",";}
             continue;
         }
-        var inputEventId = document.getElementById("lbinputEvent" + i).innerHTML;
+        var inputEventId = document.getElementById("lbinputEvent" + i).id;
         var inputEventType = document.getElementById("inputEventType" + i).value;
-        var inputEventValue = document.getElementById("txtinputEvent" + i).value;
-        var inputEventValueType = document.getElementById("inputEventValueType" + i).value;
-        var inputEventDependency = document.getElementById("txtinputEventDependence" + i).value;
-        s += "{\"id\":\"" + inputEventId.trim() + "\",\"eventType\":\"" + inputEventType.trim() + "\",\"eventName\":\"" + inputEventValue.trim() + "\",\"inputEventValueType\":\"" + inputEventValueType.trim() + "\",\"inputEventDependency\":\"" + inputEventDependency.trim() + "\"}";
+        var inputEventName = document.getElementById("txtinputEvent" + i).value;       
+        s += "{\"id\":\"" + inputEventId.trim() + "\",\"eventType\":\"" + inputEventType.trim() + "\",\"eventName\":\"" + inputEventName.trim() + "\"}";
                     if ((document.getElementById("txtinputEvent" + (i+1)) != null) && (document.getElementById("txtinputEvent" + (i+1)).value != "")) 
               { s += ",";}
     }

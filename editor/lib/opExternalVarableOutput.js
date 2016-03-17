@@ -33,15 +33,6 @@ function addExternalVarableOutput()
     s = s.replace(/##number##/g, ExternalVarableOutputNumbers);
     var lastExternalVarableOutputDiv = "ExternalVarableOutputDiv" + (ExternalVarableOutputNumbers-1);
     document.getElementById(lastExternalVarableOutputDiv).insertAdjacentHTML("afterEnd", s);
-    //document.getElementById("url_list")
-         
-    // var options = externalVarable_list.getElementsByTagName("option");
-    // externalVarable_list.appendChild(" <option value=\"externalVarable" + ExternalVarableOutputNumbers + "\"  />");
-    // var opt = document.createElement('option');
-    // opt.value = "externalVarable" + ExternalVarableOutputNumbers; 
-    var t = document.getElementById('ExternalVarableOutput_list').innerHTML; //.options.add(opt);
-    t += " <option value=\"External Varable" + ExternalVarableOutputNumbers + "\"  />";
-    document.getElementById('ExternalVarableOutput_list').innerHTML = t;
 }
 
 function removeExternalVarableOutput(num)
@@ -61,10 +52,10 @@ function collectExternalVarableOutputStr() {
         }
             continue;
         }
-        var externalVarableId = document.getElementById("lbExternalVarableOutput" + i).innerHTML;
+        var externalVarableId = document.getElementById("lbExternalVarableOutput" + i).id;
         var ExternalVarableOutputValueType = document.getElementById("ExternalVarableOutputValueType" + i).value;
         var externalVarableValue = document.getElementById("txtExternalVarableOutput" + i).value;
-        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"ExternalVarableOutputValueType\":\"" + ExternalVarableOutputValueType.trim() + "\",\"value\":\"" + externalVarableValue.trim() + "\"}";
+        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"Type\":\"" + ExternalVarableOutputValueType.trim() + "\",\"value\":\"" + externalVarableValue.trim() + "\"}";
          if ( (document.getElementById("txtExternalVarableOutput" + (i+1)) != null) && (document.getElementById("txtExternalVarableOutput" + (i+1)).value != "")) {
             s += ",";}
     }

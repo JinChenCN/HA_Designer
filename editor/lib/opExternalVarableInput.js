@@ -33,15 +33,6 @@ function addExternalVarableInput()
     s = s.replace(/##number##/g, externalVarableInputNumbers);
     var lastExternalVarableInputDiv = "ExternalVarableInputDiv" + (externalVarableInputNumbers-1);
     document.getElementById(lastExternalVarableInputDiv).insertAdjacentHTML("afterEnd", s);
-    //document.getElementById("url_list")
-         
-    // var options = externalVarable_list.getElementsByTagName("option");
-    // externalVarable_list.appendChild(" <option value=\"externalVarable" + externalVarableInputNumbers + "\"  />");
-    // var opt = document.createElement('option');
-    // opt.value = "externalVarable" + externalVarableInputNumbers; 
-    var t = document.getElementById('ExternalVarableInput_list').innerHTML; //.options.add(opt);
-    t += " <option value=\"External Varable" + externalVarableInputNumbers + "\"  />";
-    document.getElementById('ExternalVarableInput_list').innerHTML = t;
 }
 
 function removeExternalVarableInput(num)
@@ -61,10 +52,10 @@ function collectExternalVarableInputStr() {
         }
             continue;
         }
-        var externalVarableId = document.getElementById("lbExternalVarableInput" + i).innerHTML;
+        var externalVarableId = document.getElementById("lbExternalVarableInput" + i).id;
         var ExternalVarableInputValueType = document.getElementById("ExternalVarableInputValueType" + i).value;
         var externalVarableValue = document.getElementById("txtExternalVarableInput" + i).value;
-        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"ExternalVarableInputValueType\":\"" + ExternalVarableInputValueType.trim() + "\",\"value\":\"" + externalVarableValue.trim() + "\"}";
+        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"Type\":\"" + ExternalVarableInputValueType.trim() + "\",\"value\":\"" + externalVarableValue.trim() + "\"}";
          if ( (document.getElementById("txtExternalVarableInput" + (i+1)) != null) && (document.getElementById("txtExternalVarableInput" + (i+1)).value != "")) {
             s += ",";}
     }
