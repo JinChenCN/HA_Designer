@@ -24,9 +24,11 @@ function addInputEvent()
       valueDiv.innerHTML = valueDiv.innerHTML + v;
 
     for (var i = 1; i <= 20; i++) {
-      if (document.getElementById("txtExternalVarableInput" + i) == null) 
+      if (document.getElementById("txtExternalVarableInput" + i) == null|| document.getElementById("ExternalVarableInputDiv" + i).style.display == "none") 
         {continue;}
-      var addValue = "<input type=\"checkbox\" id=\"inputEventValue" + inputEventNubers + "variable##number##\" name=\"ExternalVarableInput##number##\" value=\"ExternalVarableInput##number##\"><label name=\"lbinputEventValue##number##\">External Varable Input ##number##<br></label>";
+      var addValue = "<input type=\"checkbox\" id=\"inputEventValue" + inputEventNubers + 
+      "variable##number##\" name=\"ExternalVarableInput##number##\" value=\"ExternalVarableInput##number##\"><label id=\"lbinputEventValue" + 
+      inputEventNubers + "check##number##\">External Varable Input ##number##<br></label>";
       addValue = addValue.replace(/##number##/g, i);
       var valueDiv = document.getElementById('inputEventValues' + inputEventNubers);
       valueDiv.innerHTML = valueDiv.innerHTML + addValue;

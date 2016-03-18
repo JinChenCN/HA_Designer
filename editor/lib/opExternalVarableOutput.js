@@ -36,7 +36,9 @@ function addExternalVarableOutput()
 
     for (var i = 1; i <= 20; i++) {
       if (document.getElementById("txtoutputEvent" + i) == null) {continue;}
-      var addValue = "<input type=\"checkbox\" id=\"outputEventValue" + i + "variable##number##\" name=\"ExternalVarableOutput##number##\" value=\"ExternalVarableOutput##number##\"><label name=\"lboutputEventValue##number##\">External Varable Output ##number##<br></label>";
+      var addValue = "<input type=\"checkbox\" id=\"outputEventValue" + i + 
+      "variable##number##\" name=\"ExternalVarableOutput##number##\" value=\"ExternalVarableOutput##number##\"><label id=\"lboutputEventValue" + i + 
+      "check##number##\">External Varable Output ##number##<br></label>";
       addValue = addValue.replace(/##number##/g, ExternalVarableOutputNumbers);
 
       var valueDiv = document.getElementById('outputEventValues' + i);
@@ -48,15 +50,15 @@ function removeExternalVarableOutput(num)
 {
     document.getElementById("txtExternalVarableOutput" + num).value = "";
     document.getElementById("ExternalVarableOutputDiv" + num).style.display = "none";
-    
-    document.getElementsByName("lboutputEventValue" + num).forEach(remove());
-    //document.getElementsByName("ExternalVarableOutput" + num).remove();
-    for (var i = 0; i < document.getElementsByName("lboutputEventValue" + num).length; i++) {
-      document.getElementsByName("lboutputEventValue" + num)[i].remove();
+
+    for (var i = 1; i <= 20; i++) {
+      if(document.getElementById("lboutputEventValue" + i +"check" + num) == null) {continue;}
+      document.getElementById("lboutputEventValue" + i +"check" + num).remove(); 
     }
-    //document.getElementsByName("lbinputEventValue" + num).remove();
-    for (var i = 0; i < document.getElementsByName("lbinputEventValue" + num).length; i++) {
-      document.getElementsByName("ExternalVarableOutput" + num)[i].remove();
+
+    for (var i = 1; i <= 20; i++) {
+      if(document.getElementById("outputEventValue" + i +"variable" + num) == null) {continue;}
+      document.getElementById("outputEventValue" + i +"variable" + num).remove();
     }
 }
 

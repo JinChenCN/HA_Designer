@@ -36,7 +36,9 @@ function addExternalVarableInput()
 
     for (var i = 1; i <= 20; i++) {
       if (document.getElementById("txtinputEvent" + i) == null) {continue;}
-      var addValue = "<input type=\"checkbox\" id=\"inputEventValue" + i + "variable##number##\" name=\"ExternalVarableInput##number##\" value=\"ExternalVarableInput##number##\"><label name=\"lbinputEventValue##number##\">External Varable Input ##number##<br></label>";
+      var addValue = "<input type=\"checkbox\" id=\"inputEventValue" + i + 
+      "variable##number##\" name=\"ExternalVarableInput##number##\" value=\"ExternalVarableInput##number##\"><label id=\"lbinputEventValue" + 
+      i + "check##number##\">External Varable Input ##number##<br></label>";
       addValue = addValue.replace(/##number##/g, externalVarableInputNumbers);
       var valueDiv = document.getElementById('inputEventValues' + i);
       valueDiv.innerHTML = valueDiv.innerHTML + addValue;
@@ -47,14 +49,16 @@ function removeExternalVarableInput(num)
 {
     document.getElementById("txtExternalVarableInput" + num).value = "";
     document.getElementById("ExternalVarableInputDiv" + num).style.display = "none";
-    for (var i = 0; i < document.getElementsByName("lbinputEventValue" + num).length; i++) {
-      document.getElementsByName("lbinputEventValue" + num)[i].remove();
+    for (var i = 1; i <= 20; i++) {
+      if(document.getElementById("lbinputEventValue" + i +"check" + num) == null) {continue;}
+      document.getElementById("lbinputEventValue" + i +"check" + num).remove(); 
     }
-    //document.getElementsByName("lbinputEventValue" + num).remove();
-    for (var i = 0; i < document.getElementsByName("ExternalVarableInput" + num).length; i++) {
-      document.getElementsByName("ExternalVarableInput" + num)[i].remove();
+
+    for (var i = 1; i <= 20; i++) {
+      if(document.getElementById("inputEventValue" + i +"variable" + num) == null) {continue;}
+      document.getElementById("inputEventValue" + i +"variable" + num).remove();
     }
-    //document.getElementsByName("ExternalVarableInput" + num).remove();
+
 }
 
 function collectExternalVarableInputStr() {
