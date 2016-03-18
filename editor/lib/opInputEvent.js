@@ -53,10 +53,38 @@ function collectinputEventStr() {
         }
         var inputEventId = document.getElementById("lbinputEvent" + i).id;
         var inputEventType = document.getElementById("inputEventType" + i).value;
-        var inputEventName = document.getElementById("txtinputEvent" + i).value;       
-        s += "{\"id\":\"" + inputEventId.trim() + "\",\"eventType\":\"" + inputEventType.trim() + "\",\"eventName\":\"" + inputEventName.trim() + "\"}";
-                    if ((document.getElementById("txtinputEvent" + (i+1)) != null) && (document.getElementById("txtinputEvent" + (i+1)).value != "")) 
-              { s += ",";}
+        var inputEventName = document.getElementById("txtinputEvent" + i).value;
+        var variableValues = "";
+        var variablesId = [];
+        for (var j = 1; j <= 20; j++) {
+          if (document.getElementById("txtExternalVarableInput" + j) == null) 
+            {continue;}
+          var isAssociated = document.getElementById("inputEventValue" + i + "variable" + j).checked;
+          if(isAssociated)
+          {
+            variablesId.push(document.getElementById("inputEventValue" + i + "variable" + j).name);
+          }
+        }
+
+        if (variablesId != [])
+        {
+          for (var k=0; k<variablesId.length;k++)
+          {
+            var typeId = variablesId[k].insert(variablesId[k].length-1, "ValueType");
+            var variableType = document.getElementById(typeId).value;
+            var valueId = "txt"+variablesId[k];
+            var varibaleValue = document.getElementById(valueId).value;
+            variableValues += "{\"variableType\":\"" + variableType + "\",\"varibaleValue\" :\"" + varibaleValue + "\"}";
+            if(k != variablesId.length-1)
+            {
+              variableValues += ",";
+            }            
+          }
+        }
+        s += "{\"id\":\"" + inputEventId.trim() + "\",\"eventType\":\"" + inputEventType.trim() + "\",\"eventName\":\"" + 
+        inputEventName.trim() + "\" ,\"variables\": ["+ variableValues + "]}";
+        if ((document.getElementById("txtinputEvent" + (i+1)) != null) && (document.getElementById("txtinputEvent" + (i+1)).value != "")) 
+          { s += ",";}
     }
 
 
@@ -65,5 +93,13 @@ function collectinputEventStr() {
     return s;
     //document.getElementById("txtjson").value = s;
 }
-        
+     
+
+//Helper   
+String.prototype.insert = function (index, string) {
+  if (index > 0)
+    return this.substring(0, index) + string + this.substring(index, this.length);
+  else
+    return string + this;
+};
  
