@@ -56,7 +56,36 @@ function collectoutputEventStr() {
         var outputEventId = document.getElementById("lboutputEvent" + i).id;
         var outputEventType = document.getElementById("outputEventType" + i).value;
         var outputEventName = document.getElementById("txtoutputEvent" + i).value;
-        s += "{\"id\":\"" + outputEventId.trim() + "\",\"eventType\":\"" + outputEventType.trim() + "\",\"eventName\":\"" + outputEventName.trim() + "\"}";
+        var variableValues = "";
+        var variablesId = [];
+        for (var j = 1; j <= 20; j++) {
+          if (document.getElementById("txtExternalVarableOutput" + j) == null) 
+            {continue;}
+          var isAssociated = document.getElementById("outputEventValue" + i + "variable" + j).checked;
+          if(isAssociated)
+          {
+            variablesId.push(document.getElementById("outputEventValue" + i + "variable" + j).name);
+          }
+        }
+
+        if (variablesId != [])
+        {
+          for (var k=0; k<variablesId.length;k++)
+          {
+            var typeId = variablesId[k].insert(variablesId[k].length-1, "ValueType");
+            var variableType = document.getElementById(typeId).value;
+            var valueId = "txt"+variablesId[k];
+            var varibaleValue = document.getElementById(valueId).value;
+            variableValues += "{\"variableType\":\"" + variableType + "\",\"varibaleValue\" :\"" + varibaleValue + "\"}";
+            if(k != variablesId.length-1)
+            {
+              variableValues += ",";
+            }            
+          }
+        }
+
+        s += "{\"id\":\"" + outputEventId.trim() + "\",\"eventType\":\"" + outputEventType.trim() + 
+        "\",\"eventName\":\"" + outputEventName.trim() + "\" ,\"variables\": ["+ variableValues  + "]}";
         if ((document.getElementById("txtoutputEvent" + (i+1)) != null) && (document.getElementById("txtoutputEvent" + (i+1)).value != "")) 
         {
             s += ",";
@@ -68,6 +97,14 @@ function collectoutputEventStr() {
    // var serializedDiagram = JSON.stringify(s)
     return s;
     //document.getElementById("txtjson").value = s;
-}    
+} 
+
+//Helper   
+String.prototype.insert = function (index, string) {
+  if (index > 0)
+    return this.substring(0, index) + string + this.substring(index, this.length);
+  else
+    return string + this;
+};   
         
  
