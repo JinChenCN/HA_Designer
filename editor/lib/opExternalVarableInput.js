@@ -66,10 +66,11 @@ function collectExternalVarableInputStr() {
     var s = "{\"ExternalVarableInput\":[";
     for (var i = 1; i <= externalVarableInputNumbers; i++) {
 
-        if (document.getElementById("txtExternalVarableInput" + i).value == "") {
-                  if ( (i!=1) && (document.getElementById("txtExternalVarableInput" + (i+1)) != null) && (document.getElementById("txtExternalVarableInput" + (i+1)).value != "")) {
-            s += ",";
-        }
+        if (document.getElementById("txtExternalVarableInput" + i).value == "" || isInAssociated(i)) {
+            if ( (i!=1) && (document.getElementById("txtExternalVarableInput" + (i+1)) != null) && (document.getElementById("txtExternalVarableInput" + (i+1)).value != "") && !(isInAssociated(i+1))) 
+            {
+              s += ",";
+            }
             continue;
         }
         var externalVarableId = document.getElementById("lbExternalVarableInput" + i).id;
@@ -85,6 +86,20 @@ function collectExternalVarableInputStr() {
    // var serializedDiagram = JSON.stringify(s)
     return s;
     //document.getElementById("txtjson").value = s;
+}
+
+function isInAssociated(i) {
+  var isAssociated = false;
+  for (var j = 1; j <= 20; j++) {
+    if (document.getElementById("txtinputEvent" + j) == null) 
+            {continue;}
+     isAssociated = document.getElementById("inputEventValue" + j + "variable" + i).checked;
+     if(isAssociated == true)
+     {
+      return isAssociated;
+     }
+    }
+    return isAssociated;
 }
 
         

@@ -67,8 +67,8 @@ function collectExternalVarableOutputStr() {
     var s = "{\"ExternalVarableOutput\":[";
     for (var i = 1; i <= ExternalVarableOutputNumbers; i++) {
 
-        if (document.getElementById("txtExternalVarableOutput" + i).value == "") {
-                  if ( (i!=1) && (document.getElementById("txtExternalVarableOutput" + (i+1)) != null) && (document.getElementById("txtExternalVarableOutput" + (i+1)).value != "")) {
+        if ((document.getElementById("txtExternalVarableOutput" + i).value == "") || isAssociated(i)) {
+                  if ( (i!=1) && (document.getElementById("txtExternalVarableOutput" + (i+1)) != null) && (document.getElementById("txtExternalVarableOutput" + (i+1)).value != "") && !(isAssociated(i+1))) {
             s += ",";
         }
             continue;
@@ -86,6 +86,20 @@ function collectExternalVarableOutputStr() {
    // var serializedDiagram = JSON.stringify(s)
     return s;
     //document.getElementById("txtjson").value = s;
+}
+
+function isAssociated(i) {
+  var isAssociated = false;
+  for (var j = 1; j <= 20; j++) {
+    if (document.getElementById("txtoutputEvent" + j) == null) 
+            {continue;}
+     isAssociated = document.getElementById("outputEventValue" + j + "variable" + i).checked;
+     if(isAssociated == true)
+     {
+      return isAssociated;
+     }
+    }
+    return isAssociated;
 }
 
         
