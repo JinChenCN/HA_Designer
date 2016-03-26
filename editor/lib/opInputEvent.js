@@ -1,6 +1,22 @@
 ﻿
 var inputEventNubers = 1;
 
+var inEventNames = [];
+function checkInEventNames(input) {
+    var name = input.value;
+    if (name != "")
+    {
+        if (inEventNames.indexOf(name) >= 0) {
+            alert("This event name has already existed, please input a new one!");
+            input.value = "";
+            return false;
+    }
+    inEventNames.push(name);
+    return true;
+
+    }    
+}
+
 function addInputEvent()
 {
     inputEventNubers++;
@@ -11,7 +27,7 @@ function addInputEvent()
                                       "<option value=\"any\">ANY</option>" + 
                                       "<option value=\"custom\">CUSTOM</option>" +                                     
                                      "</select>" +
-    " <input style=\"width:200px\" id=\"txtinputEvent##number##\" /> " +
+    " <input style=\"width:100px\" id=\"txtinputEvent##number##\" onchange=\"checkInEventNames(this)\" /> " +
         "<input type=\"button\" style=\"width:50px\" onclick=\"removeinputEvent(##number##)\" id=\"btnRemoveinputEvent##number##\" value=\" Delete \"/> </div>";
     s = s.replace(/##number##/g, inputEventNubers);
     var lastinputEventDiv = "inputEventDiv" + (inputEventNubers-1);

@@ -1,6 +1,22 @@
 ﻿
 var externalVarableInputNumbers = 1;
 
+var inVariableNames = [];
+function checkInVarNames(input) {
+    var name = input.value;
+    if (name != "")
+    {
+        if (inVariableNames.indexOf(name) >= 0) {
+            alert("This variable name has already existed, please input a new one!");
+            input.value = "";
+            return false;
+    }
+    inVariableNames.push(name);
+    return true;
+
+    }    
+}
+
 function addExternalVarableInput()
 {
     externalVarableInputNumbers++;
@@ -28,7 +44,7 @@ function addExternalVarableInput()
                                       "<option value=\"word\">WORD</option>" + 
                                       "<option value=\"wstring\">WSTRING</option>" + 
                                      "</select>" +
-        "<input id=\"txtExternalVarableInput##number##\" style=\"width:75px\" type=\"txt\" name=\"link\" /> " +
+        "<input id=\"txtExternalVarableInput##number##\" style=\"width:75px\" type=\"txt\" name=\"link\" onchange=\"checkInVarNames(this)\"/> " +
         " <input id=\"txtExternalVarableInputValue##number##\"  style=\"width:100px\" /> "+
         "<input type=\"button\" style=\"width:50px\" onclick=\"removeExternalVarableInput(##number##)\" id=\"btnExternalVarableInput##number##\" value=\" Delete \"/> </div>";
     s = s.replace(/##number##/g, externalVarableInputNumbers);
