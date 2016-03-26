@@ -94,7 +94,7 @@ function collectExternalVarableOutputStr() {
         var externalVarableOutputValueType = document.getElementById("ExternalVarableOutputValueType" + i).value;
         var externalVarableName = document.getElementById("txtExternalVarableOutput" + i).value;
         var externalVarableValue = document.getElementById("txtExternalVarableOutputValue" + i).value;
-        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"Type\":\"" + externalVarableOutputValueType.trim() + "\",\"Name\":\"" + externalVarableName.trim()+ "\",\"value\":\"" + externalVarableValue.trim() + "\"}";
+        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"Type\":\"" + externalVarableOutputValueType.trim() + "\",\"Name\":\"" + externalVarableName.trim()+ "\",\"Value\":\"" + externalVarableValue.trim() + "\"}";
          if ( (document.getElementById("txtExternalVarableOutput" + (i+1)) != null) && (document.getElementById("txtExternalVarableOutput" + (i+1)).value != "")) {
             s += ",";}
     }
