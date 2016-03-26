@@ -28,7 +28,8 @@ function addExternalVarableInput()
                                       "<option value=\"word\">WORD</option>" + 
                                       "<option value=\"wstring\">WSTRING</option>" + 
                                      "</select>" +
-        "<input id=\"txtExternalVarableInput##number##\" style=\"width:200px\" type=\"txt\" name=\"link\" /> " +
+        "<input id=\"txtExternalVarableInput##number##\" style=\"width:75px\" type=\"txt\" name=\"link\" /> " +
+        " <input id=\"txtExternalVarableInputValue##number##\"  style=\"width:100px\" /> "+
         "<input type=\"button\" style=\"width:50px\" onclick=\"removeExternalVarableInput(##number##)\" id=\"btnExternalVarableInput##number##\" value=\" Delete \"/> </div>";
     s = s.replace(/##number##/g, externalVarableInputNumbers);
     var lastExternalVarableInputDiv = "ExternalVarableInputDiv" + (externalVarableInputNumbers-1);
@@ -75,8 +76,9 @@ function collectExternalVarableInputStr() {
         }
         var externalVarableId = document.getElementById("lbExternalVarableInput" + i).id;
         var ExternalVarableInputValueType = document.getElementById("ExternalVarableInputValueType" + i).value;
-        var externalVarableValue = document.getElementById("txtExternalVarableInput" + i).value;
-        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"Type\":\"" + ExternalVarableInputValueType.trim() + "\",\"value\":\"" + externalVarableValue.trim() + "\"}";
+        var externalVarableName = document.getElementById("txtExternalVarableInput" + i).value;
+        var externalVarableValue = document.getElementById("txtExternalVarableInputValue" + i).value;
+        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"Type\":\"" + ExternalVarableInputValueType.trim() + "\",\"Name\":\"" + externalVarableName.trim()+ "\",\"value\":\"" + externalVarableValue.trim() + "\"}";
          if ( (document.getElementById("txtExternalVarableInput" + (i+1)) != null) && (document.getElementById("txtExternalVarableInput" + (i+1)).value != "")) {
             s += ",";}
     }

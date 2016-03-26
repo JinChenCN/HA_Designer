@@ -28,7 +28,8 @@ function addExternalVarableOutput()
                                       "<option value=\"word\">WORD</option>" + 
                                       "<option value=\"wstring\">WSTRING</option>" + 
                                      "</select>" +
-        "<input id=\"txtExternalVarableOutput##number##\" style=\"width:200px\" type=\"txt\" name=\"link\" /> " +
+        "<input id=\"txtExternalVarableOutput##number##\" style=\"width:75px\" type=\"txt\" name=\"link\" /> " +
+        " <input id=\"txtExternalVarableOutputValue##number##\"  style=\"width:100px\" /> "+
         "<input type=\"button\" style=\"width:50px\" onclick=\"removeExternalVarableOutput(##number##)\" id=\"btnExternalVarableOutput##number##\" value=\" Delete \"/> </div>";
     s = s.replace(/##number##/g, ExternalVarableOutputNumbers);
     var lastExternalVarableOutputDiv = "ExternalVarableOutputDiv" + (ExternalVarableOutputNumbers-1);
@@ -68,15 +69,16 @@ function collectExternalVarableOutputStr() {
     for (var i = 1; i <= ExternalVarableOutputNumbers; i++) {
 
         if ((document.getElementById("txtExternalVarableOutput" + i).value == "") || isAssociated(i)) {
-                  if ( (i!=1) && (document.getElementById("txtExternalVarableOutput" + (i+1)) != null) && (document.getElementById("txtExternalVarableOutput" + (i+1)).value != "") && !(isAssociated(i+1))) {
+            if ( (i!=1) && (document.getElementById("txtExternalVarableOutput" + (i+1)) != null) && (document.getElementById("txtExternalVarableOutput" + (i+1)).value != "") && !(isAssociated(i+1))) {
             s += ",";
         }
             continue;
         }
         var externalVarableId = document.getElementById("lbExternalVarableOutput" + i).id;
-        var ExternalVarableOutputValueType = document.getElementById("ExternalVarableOutputValueType" + i).value;
-        var externalVarableValue = document.getElementById("txtExternalVarableOutput" + i).value;
-        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"Type\":\"" + ExternalVarableOutputValueType.trim() + "\",\"value\":\"" + externalVarableValue.trim() + "\"}";
+        var externalVarableOutputValueType = document.getElementById("ExternalVarableOutputValueType" + i).value;
+        var externalVarableName = document.getElementById("txtExternalVarableOutput" + i).value;
+        var externalVarableValue = document.getElementById("txtExternalVarableOutputValue" + i).value;
+        s += "{\"id\":\"" + externalVarableId.trim() + "\",\"Type\":\"" + externalVarableOutputValueType.trim() + "\",\"Name\":\"" + externalVarableName.trim()+ "\",\"value\":\"" + externalVarableValue.trim() + "\"}";
          if ( (document.getElementById("txtExternalVarableOutput" + (i+1)) != null) && (document.getElementById("txtExternalVarableOutput" + (i+1)).value != "")) {
             s += ",";}
     }
