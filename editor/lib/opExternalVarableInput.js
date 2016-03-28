@@ -1,50 +1,34 @@
 ﻿
 var externalVarableInputNumbers = 1;
 
-var inVariableNames = [];
-function checkInVarNames(input) {
-    var name = input.value;
-    if (name != "")
-    {
-        if (inVariableNames.indexOf(name) >= 0) {
-            alert("This variable name has already existed, please input a new one!");
-            input.value = "";
-            return false;
-    }
-    inVariableNames.push(name);
-    return true;
-
-    }    
-}
-
 function addExternalVarableInput()
 {
     externalVarableInputNumbers++;
     var s = "<div id=\"ExternalVarableInputDiv##number##\">" +
     "<label id=\"lbExternalVarableInput##number##\"> External Varable Input ##number## </label> " +
     "<select id=\"ExternalVarableInputValueType##number##\"> " + 
-                                      "<option value=\"any\">ANY</option>" + 
-                                      "<option value=\"bool\">BOOL</option>" + 
-                                      "<option value=\"byte\">BYTE</option>" + 
-                                      "<option value=\"date_and_time\">DATE_AND_TIME</option>" + 
-                                      "<option value=\"dint\">DINT</option>" + 
-                                      "<option value=\"word\">DWORD</option>" + 
-                                      "<option value=\"int\">INT</option>" + 
-                                      "<option value=\"lint\">LINT</option>" + 
-                                      "<option value=\"lreal\">LREAL</option>" + 
-                                      "<option value=\"lword\">LWORD</option>" + 
-                                      "<option value=\"real\">REAL</option>" + 
-                                      "<option value=\"sint\">SINT</option>" + 
-                                      "<option value=\"string\">STRING</option>" + 
-                                      "<option value=\"time\">TIME</option>" + 
-                                      "<option value=\"udint\">UDINT</option>" + 
-                                      "<option value=\"uint\">UINT</option>" + 
-                                      "<option value=\"ulint\">ULINT</option>" + 
-                                      "<option value=\"usint\">USINT</option>" + 
-                                      "<option value=\"word\">WORD</option>" + 
-                                      "<option value=\"wstring\">WSTRING</option>" + 
+                                      "<option value=\"ANY\">ANY</option>" + 
+                                      "<option value=\"BOOL\">BOOL</option>" + 
+                                      "<option value=\"BYTE\">BYTE</option>" + 
+                                      "<option value=\"DATE_AND_TIME\">DATE_AND_TIME</option>" + 
+                                      "<option value=\"DINT\">DINT</option>" + 
+                                      "<option value=\"DWORD\">DWORD</option>" + 
+                                      "<option value=\"INT\">INT</option>" + 
+                                      "<option value=\"LINT\">LINT</option>" + 
+                                      "<option value=\"LREAL\">LREAL</option>" + 
+                                      "<option value=\"LWORD\">LWORD</option>" + 
+                                      "<option value=\"REAL\">REAL</option>" + 
+                                      "<option value=\"SINT\">SINT</option>" + 
+                                      "<option value=\"STRING\">STRING</option>" + 
+                                      "<option value=\"TIME\">TIME</option>" + 
+                                      "<option value=\"UDINT\">UDINT</option>" + 
+                                      "<option value=\"UINT\">UINT</option>" + 
+                                      "<option value=\"ULINT\">ULINT</option>" + 
+                                      "<option value=\"USINT\">USINT</option>" + 
+                                      "<option value=\"WORD\">WORD</option>" + 
+                                      "<option value=\"WSTRING\">WSTRING</option>" + 
                                      "</select>" +
-        "<input id=\"txtExternalVarableInput##number##\" style=\"width:75px\" type=\"txt\" name=\"link\" onchange=\"checkInVarNames(this)\"/> " +
+        "<input id=\"txtExternalVarableInput##number##\" style=\"width:75px\" type=\"txt\" name=\"link\" onchange=\"checkVarNames(this)\"/> " +
         " <input id=\"txtExternalVarableInputValue##number##\"  style=\"width:100px\" /> "+
         "<input type=\"button\" style=\"width:50px\" onclick=\"removeExternalVarableInput(##number##)\" id=\"btnExternalVarableInput##number##\" value=\" Delete \"/> </div>";
     s = s.replace(/##number##/g, externalVarableInputNumbers);

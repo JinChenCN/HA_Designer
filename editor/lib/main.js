@@ -4868,6 +4868,61 @@ function captureInterfaceValues() {
     return values;
 }
 
+function checkVarNames(input) {
+    var VariableNames = [];
+    var name = input.value;
+    if (name != "")
+    {
+        var i = 1;
+        while( i<=20 && (document.getElementById("txtExternalVarableInput" + i) != null) && (document.getElementById("txtExternalVarableInput" + i).value != ""))
+        {
+            if (document.getElementById("txtExternalVarableInput" + i).id != input.id)
+            {VariableNames.push(document.getElementById("txtExternalVarableInput" + i).value);}
+            i++;
+        }
+        var j = 1;
+        while( j<=20 && (document.getElementById("txtExternalVarableOutput" + j) != null) && (document.getElementById("txtExternalVarableOutput" + j).value != ""))
+        {
+            if (document.getElementById("txtExternalVarableOutput" + j).id != input.id)
+            {VariableNames.push(document.getElementById("txtExternalVarableOutput" + j).value);}
+            j++;
+        }
+        if (VariableNames.indexOf(name) >= 0) {
+            alert("This variable name has already existed, please input a new one!");
+            input.value = "";
+            return false;
+    }
+    return true;
+    }    
+}
+
+function checkEventNames(input) {
+    var EventNames = [];
+    var name = input.value;
+    if (name != "")
+    {   var i = 1;
+        while( i<=20 && (document.getElementById("txtinputEvent" + i) != null) && (document.getElementById("txtinputEvent" + i).value != ""))
+        {
+            if (document.getElementById("txtinputEvent" + i).id != input.id)
+            {EventNames.push(document.getElementById("txtinputEvent" + i).value);}
+            i++;
+        }
+        var j = 1;
+        while( j<=20 && (document.getElementById("txtoutputEvent" + j) != null) && (document.getElementById("txtoutputEvent" + j).value != ""))
+        {
+            if (document.getElementById("txtoutputEvent" + j).id != input.id)
+            {EventNames.push(document.getElementById("txtoutputEvent" + j).value);}
+            j++;
+        }
+        if (EventNames.indexOf(name) >= 0) {
+            alert("This event name has already existed, please input a new one!");
+            input.value = "";
+            return false;
+    }
+    return true;
+    }    
+}
+
 function returnConditionJasonStrByText(txtString) {
     var str = "";
     if (txtString != null) {
