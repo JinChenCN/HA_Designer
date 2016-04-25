@@ -43,7 +43,10 @@ var DIAGRAMO = {
     gradientFill: true,
 
     /**On canvas fit action this will be the distance between canvas work area and it's border*/
-    CANVAS_FIT_PADDING: 10
+    CANVAS_FIT_PADDING: 10,
+
+    /** enable/disable openning of multiple diagrams */
+    interfaceMode: false
 };
 
 
@@ -3890,6 +3893,16 @@ function action(action) {
             }
             break;
 
+        case 'show-interface':
+            if (state == STATE_TEXT_EDITING) {
+                currentTextEditor.destroy();
+                currentTextEditor = null;
+            }
+            selectedFigureId = -1;
+            DIAGRAMO.interfaceMode = true;
+            redraw = true;
+            break;
+
         case 'connector-jagged':
             if (state == STATE_TEXT_EDITING) {
                 currentTextEditor.destroy();
@@ -4240,7 +4253,44 @@ var lastMousePosition = null;
 //        draw();
 //    }
 //}
+function delegateFilePickup() {
+    if(DIAGRAMO.interfaceMode) {
+        document.getElementById("fileToOpenDiagram").setAttribute("multiple", "multiple");
+    }         
+    document.getElementById("fileToOpenDiagram").click();
+    document.getElementById('fileToOpenDiagram').addEventListener('change', fileToReload, false);
 
+}
+
+function fileToReload(evt) {
+            var files = document.getElementById('fileToOpenDiagram').files;
+            if (!files.length) {
+                alert('Please select a file!');
+                return;
+            }
+
+            for( var i = 0; i<files.length; i++) {
+                var file = files[i];
+                //  var start = parseInt(opt_startByte) || 0;
+                //  var stop = parseInt(opt_stopByte) || file.size - 1;
+                var reader = new FileReader();
+                reader.readAsText(file);
+                // If we use onloadend, we need to check the readyState.
+                reader.onloadend = function (evt1) {
+                    if (evt1.target.readyState == FileReader.DONE) { // DONE == 2
+                        // document.getElementById('outputStr2').textContent = evt1.target.result
+                        // alert ( evt.target.result );
+                        loadModelFromLocal(evt1.target.result);
+                }
+            }
+
+            };
+
+            //   var blob = file.slice(start, stop + 1);
+            //   reader.readAsBinaryString(blob);
+
+
+        }
 
 function documentOnMouseDown(evt) {
     //Log.info("documentOnMouseDown");
