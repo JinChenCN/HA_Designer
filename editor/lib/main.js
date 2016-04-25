@@ -4269,8 +4269,8 @@ function fileToReload(evt) {
                 return;
             }
 
-            for( var i = 0; i<files.length; i++) {
-                var file = files[i];
+            if(files.length == 1) {
+                var file = files[0];
                 //  var start = parseInt(opt_startByte) || 0;
                 //  var stop = parseInt(opt_stopByte) || file.size - 1;
                 var reader = new FileReader();
@@ -4281,14 +4281,18 @@ function fileToReload(evt) {
                         // document.getElementById('outputStr2').textContent = evt1.target.result
                         // alert ( evt.target.result );
                         loadModelFromLocal(evt1.target.result);
+                    }
                 }
+            } else {
+
+                for( var i = 0; i<files.length; i++) {
+
+
+                }
+
             }
-
-            };
-
             //   var blob = file.slice(start, stop + 1);
             //   reader.readAsBinaryString(blob);
-
 
         }
 
