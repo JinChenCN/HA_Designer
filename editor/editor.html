@@ -206,9 +206,9 @@
 
         <img class="separator" src="assets/images/toolbar_separator.gif" border="0" width="1" height="16" />
 
+        <a href="javascript:action('show-design');" title="Open diagram"><img src="assets/images/icon_open.jpg" border="0" width="16" height="16" /></a>
 
-        <a style="text-decoration: none;" href="#" title="Open diagram" onclick="return delegateFilePickup()">
-            <img src="assets/images/icon_open.jpg" border="0" width="16" height="16" />
+        <a style="text-decoration: none;" style="display:none" href="#" title="Open diagram" onclick="return delegateFilePickup()">
             <input type="file" style="display:none" id="fileToOpenDiagram" />
         </a>
 
@@ -237,11 +237,7 @@
 
         <img class="separator" src="assets/images/toolbar_separator.gif" border="0" width="1" height="16" />
 
-        <a href="javascript:action('show-interface');" title="Interface mode"><img src="assets/images/interface-icon.png" border="0" /></a>
-
-        <img class="separator" src="assets/images/toolbar_separator.gif" border="0" width="1" height="16" />
-
-        <a href="javascript:action('show-design');" title="HA Design mode"><img src="assets/images/HA-mode.png" border="0" /></a>
+        <a href="javascript:action('show-interface');" title="Interface mode"><img src="assets/images/interface-mode.png" border="0" /></a>
 
         <img style="display:none" class="separator" src="assets/images/toolbar_separator.gif" border="0" width="1" height="16" />
 
@@ -439,7 +435,7 @@
 
                 </div>
                 <div id="text-editor-tools"></div>
-                <table width="100%">
+                <table width="100%" id="edit-area">
                     <tr>
 
                         <td id="outputStr1">

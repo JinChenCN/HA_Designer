@@ -359,7 +359,7 @@ function getContext() {
         return canvas.getContext("2d");
     }
     else {
-        alert('You need a HTML5 web browser. Any Safari,Firefox, Chrome or Explorer supports this.');
+        alert('You need a HTML5 web browser. Any Safari, Firefox, Chrome or Explorer supports this.');
     }
 }
 
@@ -3900,7 +3900,21 @@ function action(action) {
             }
             selectedFigureId = -1;
             DIAGRAMO.interfaceMode = true;
-            redraw = true;
+            delegateFilePickup();
+            document.getElementById("edit-area").style.display = "none";
+            break;
+
+        case 'show-design':
+            if (state == STATE_TEXT_EDITING) {
+                currentTextEditor.destroy();
+                currentTextEditor = null;
+            }
+            selectedFigureId = -1;
+            DIAGRAMO.interfaceMode = false;
+            delegateFilePickup();
+            if(document.getElementById("edit-area").hasAttribute("style")) {
+                document.getElementById("edit-area").removeAttribute("style");
+            }
             break;
 
         case 'connector-jagged':
@@ -4256,7 +4270,11 @@ var lastMousePosition = null;
 function delegateFilePickup() {
     if(DIAGRAMO.interfaceMode) {
         document.getElementById("fileToOpenDiagram").setAttribute("multiple", "multiple");
-    }         
+    } else {
+        if(document.getElementById("fileToOpenDiagram").hasAttribute("multiple")){
+            document.getElementById("fileToOpenDiagram").removeAttribute("multiple");
+        }
+    }        
     document.getElementById("fileToOpenDiagram").click();
     document.getElementById('fileToOpenDiagram').addEventListener('change', fileToReload, false);
 
@@ -4287,6 +4305,11 @@ function fileToReload(evt) {
 
                 for( var i = 0; i<files.length; i++) {
 
+                var file = files[0];
+                //  var start = parseInt(opt_startByte) || 0;
+                //  var stop = parseInt(opt_stopByte) || file.size - 1;
+                var reader = new FileReader();
+                reader.readAsText(file);
 
                 }
 
