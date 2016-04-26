@@ -3434,7 +3434,7 @@ function save() {
         return;
     }
     var modelname = document.getElementById("txtModelName").value;
-    var diagram = { c: canvasProps, s: STACK, m: CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: modelname };
+    var diagram = { c: canvasProps, s: STACK, m: CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: modelname };   
     var serializedDiagram = JSON.stringify(diagram);
     var BB = self.Blob;
     //var modelname = document.getElementById("txtModelName").value;
@@ -3449,6 +3449,50 @@ function save() {
         , modelname + ".txt"
     );
 
+}
+
+function saveInterface() {
+    var modelname = document.getElementById("txtModelName").value;
+    if (modelname == null || modelname == "") {
+        modelname = "model";
+    }
+    var INTERFACE_STACK = setInterfaceStack(modelname);
+    var INTERFACE_CONNECTOR_MANAGER = setInterfaceConnectors();
+    var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: "Interface" };   
+    var serializedDiagram = JSON.stringify(diagram);
+    var BB = self.Blob;
+    saveAs(
+          new BB(
+                  [serializedDiagram]
+                , { type: "application/xhtml+xml;charset=" + document.characterSet }
+            )
+        , modelname + "_Interface.txt"
+    );
+} 
+
+function setInterfaceStack(modelname) {
+    var INTERFACE_STACK = STACK;
+    for (var i = 0; i<INTERFACE_STACK.figures.length; i++) {
+        var figure = INTERFACE_STACK.figures[i];
+        if(figure.name == "RoundedRectangle") {
+            figure.primitives[1].str = modelname;
+            for (var j = 0; j<INTERFACE_STACK.figures.length; j++) {
+                if(j!=i) {
+                    INTERFACE_STACK.figureRemoveById(j);
+                }
+            }
+        }
+    }
+    INTERFACE_STACK.currentId = 1;
+    INTERFACE_STACK.idToIndex = [0];
+    return INTERFACE_STACK;
+}
+
+function setInterfaceConnectors() {
+    var INTERFACE_CONNECTOR_MANAGER = CONNECTOR_MANAGER;
+    INTERFACE_CONNECTOR_MANAGER.connectors = [];
+    INTERFACE_CONNECTOR_MANAGER.glues = [];
+    return INTERFACE_CONNECTOR_MANAGER;
 }
 
 /** Export jasons string about the current diagram 
