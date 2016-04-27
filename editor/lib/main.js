@@ -4331,7 +4331,7 @@ function fileToReload(evt) {
                 return;
             }
 
-            if(files.length == 1) {
+            if(files.length == 1 && !DIAGRAMO.interfaceMode) {
                 var file = files[0];
                 //  var start = parseInt(opt_startByte) || 0;
                 //  var stop = parseInt(opt_stopByte) || file.size - 1;
@@ -4344,22 +4344,46 @@ function fileToReload(evt) {
                         // alert ( evt.target.result );
                         loadModelFromLocal(evt1.target.result);
                     }
-                }
-            } else {
-
-                for( var i = 0; i<files.length; i++) {
-
+                } 
+            }else
+            {
                 var file = files[0];
                 //  var start = parseInt(opt_startByte) || 0;
                 //  var stop = parseInt(opt_stopByte) || file.size - 1;
                 var reader = new FileReader();
                 reader.readAsText(file);
+                // If we use onloadend, we need to check the readyState.
+                reader.onloadend = function (evt1) {
+                if (evt1.target.readyState == FileReader.DONE) { // DONE == 2
+                    var obj = eval('(' + evt1.target.result + ')');
+                    STACK = Stack.load(obj['s']);
+                    CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
+                    CONTAINER_MANAGER = ContainerFigureManager.load(obj['p']);
+                }
+                } 
+                       
+                for( var i = 1; i<files.length; i++) {
+                    var interfaceFile = files[i];
+                    var interfaceReader = new FileReader();
+                    interfaceReader.readAsText(interfaceFile);
+                    interfaceReader.onloadend = function (evt1) {
+                    if (evt1.target.readyState == FileReader.DONE) { // DONE == 2
+                        var obj = eval('(' + evt1.target.result + ')');
+                        STACK.figureAdd(Figure.load(obj['s']['figures'][0]));
+                        if(i == files.length) {
+                            try {
+                            draw();
 
+                            //alert("loaded");
+                            } catch (error) {
+                                alert("main.js:fileToReload() Exception: " + error);
+                            }
+                        }
+                        }
+                    } 
                 }
 
             }
-            //   var blob = file.slice(start, stop + 1);
-            //   reader.readAsBinaryString(blob);
 
         }
 
@@ -5242,6 +5266,34 @@ function loadModelFromLocal(data) {
         }
         CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
         CONTAINER_MANAGER = ContainerFigureManager.load(obj['p']);
+        draw();
+
+        //alert("loaded");
+    } catch (error) {
+        alert("main.js:load() Exception: " + error);
+    }
+}
+
+function loadInterfaceFromLocal(STACK, data) {
+    //alert("load diagram [" + diagramId + ']');
+
+    try {
+        var obj = eval('(' + data + ')');
+        if (!('v' in obj) || obj.v != DIAGRAMO.fileVersion) {
+            Importer.importDiagram(obj);//import 1st version of Diagramo files
+        }
+
+        var newSTACK = STACK.figureAdd(obj['s']['figures'][0]);
+        //canvasProps = CanvasProps.load(obj['c']);
+        //canvasProps.sync();
+        //setUpEditPanel(canvasProps);
+        //mn 
+        //alert(obj['mn']);
+        //if (obj['mn'] != null && obj['mn'] != undefined && obj['mn'] != '') {
+           // document.getElementById("txtModelName").value = obj['mn'];
+        //}
+        //CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
+        //CONTAINER_MANAGER = ContainerFigureManager.load(obj['p']);
         draw();
 
         //alert("loaded");
