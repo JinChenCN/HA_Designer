@@ -3454,7 +3454,7 @@ function save() {
 function saveInterface() {
     var modelname = document.getElementById("txtModelName").value;
     if (modelname == null || modelname == "") {
-        modelname = "model";
+        modelname = "interface";
     }
     var INTERFACE_STACK = setInterfaceStack(modelname);
     var INTERFACE_CONNECTOR_MANAGER = setInterfaceConnectors();
@@ -4371,6 +4371,10 @@ function fileToReload(evt) {
                         var obj = eval('(' + evt1.target.result + ')');
                         STACK.figureAdd(Figure.load(obj['s']['figures'][0]));
                         if(i == files.length) {
+                            for(var j = 0; j < STACK.figures.length; j++)
+                            {
+                                STACK.figures[j].id = j;
+                            }
                             try {
                             draw();
 
