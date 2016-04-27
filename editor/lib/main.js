@@ -3454,12 +3454,19 @@ function save() {
 function saveInterface() {
     var modelname = document.getElementById("txtModelName").value;
     if (modelname == null || modelname == "") {
-        modelname = "interface";
+        modelname = "Interface";
     }
     var INTERFACE_STACK = setInterfaceStack(modelname);
     var INTERFACE_CONNECTOR_MANAGER = setInterfaceConnectors();
-    var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: "Interface" };   
+    var interfaceValue = "[";
+    interfaceValue += collectExternalVarableInputStr();
+    interfaceValue += collectExternalVarableOutputStr();
+    interfaceValue += collectinputEventStr();
+    interfaceValue += collectoutputEventStr();
+    interfaceValue += "]";
+    var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: "Interface", interfaceV: interfaceValue };   
     var serializedDiagram = JSON.stringify(diagram);
+    serializedDiagram = serializedDiagram.replace("\\", "");
     var BB = self.Blob;
     saveAs(
           new BB(
@@ -3475,13 +3482,15 @@ function setInterfaceStack(modelname) {
     for (var i = 0; i<INTERFACE_STACK.figures.length; i++) {
         var figure = INTERFACE_STACK.figures[i];
         if(figure.name == "RoundedRectangle") {
-            figure.primitives[1].str = modelname;
+            figure.primitives[1].str = modelname + " interface";
             for (var j = 0; j<INTERFACE_STACK.figures.length; j++) {
                 if(j!=i) {
                     INTERFACE_STACK.figureRemoveById(j);
                 }
             }
+            break;
         }
+
     }
     INTERFACE_STACK.currentId = 1;
     INTERFACE_STACK.idToIndex = [0];
@@ -4357,8 +4366,17 @@ function fileToReload(evt) {
                 if (evt1.target.readyState == FileReader.DONE) { // DONE == 2
                     var obj = eval('(' + evt1.target.result + ')');
                     STACK = Stack.load(obj['s']);
-                    CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
-                    CONTAINER_MANAGER = ContainerFigureManager.load(obj['p']);
+                    if(files.length == 1) {
+                       try {
+                                draw();
+
+                                //alert("loaded");
+                                } catch (error) {
+                                    alert("main.js:fileToReload() Exception: " + error);
+                                } 
+                    } 
+                    //CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
+                    //CONTAINER_MANAGER = ContainerFigureManager.load(obj['p']);
                 }
                 } 
                        

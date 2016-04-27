@@ -98,6 +98,7 @@ function collectoutputEventStr() {
 
 
     var s = s + "]}";
+    
    // var serializedDiagram = JSON.stringify(s)
     return s;
     //document.getElementById("txtjson").value = s;

@@ -78,7 +78,9 @@ function collectinputEventStr() {
             var varibaleName = document.getElementById(nameId).value;
             var valueId = "txt"+variablesId[k].insert(variablesId[k].length-1, "Value");
             var varibaleValue = document.getElementById(valueId).value;
+
             variableValues += "{\"variableType\":\"" + variableType + "\",\"varibaleName\":\"" + varibaleName + "\",\"varibaleValue\":\"" + varibaleValue + "\"}";
+            
             if(k != variablesId.length-1)
             {
               variableValues += ",";
@@ -93,6 +95,7 @@ function collectinputEventStr() {
 
 
     var s = s + "]},";
+
    // var serializedDiagram = JSON.stringify(s)
     return s;
     //document.getElementById("txtjson").value = s;
