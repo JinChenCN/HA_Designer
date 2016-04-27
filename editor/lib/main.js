@@ -3466,7 +3466,7 @@ function saveInterface() {
     interfaceValue += "]";
     var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: "Interface", interfaceV: interfaceValue };   
     var serializedDiagram = JSON.stringify(diagram);
-    serializedDiagram = serializedDiagram.replace("\\", "");
+    serializedDiagram = serializedDiagram.replace(/[\'\"\\\/\b\f\n\r\t]/g, ''); 
     var BB = self.Blob;
     saveAs(
           new BB(
@@ -4368,12 +4368,10 @@ function fileToReload(evt) {
                     STACK = Stack.load(obj['s']);
                     if(files.length == 1) {
                        try {
-                                draw();
-
-                                //alert("loaded");
-                                } catch (error) {
-                                    alert("main.js:fileToReload() Exception: " + error);
-                                } 
+                            draw();
+                            } catch (error) {
+                                alert("main.js:fileToReload() Exception: " + error);
+                            } 
                     } 
                     //CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
                     //CONTAINER_MANAGER = ContainerFigureManager.load(obj['p']);

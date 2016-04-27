@@ -83,7 +83,6 @@ function collectExternalVarableInputStr() {
             s += ",";}
     }
 
-
     var s = s + "]},";
     
    // var serializedDiagram = JSON.stringify(s)
