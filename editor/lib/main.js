@@ -3458,15 +3458,10 @@ function saveInterface() {
     }
     var INTERFACE_STACK = setInterfaceStack(modelname);
     var INTERFACE_CONNECTOR_MANAGER = setInterfaceConnectors();
-    var interfaceValue = "[";
-    interfaceValue += collectExternalVarableInputStr();
-    interfaceValue += collectExternalVarableOutputStr();
-    interfaceValue += collectinputEventStr();
-    interfaceValue += collectoutputEventStr();
-    interfaceValue += "]";
-    var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: "Interface", interfaceV: interfaceValue };   
+
+    var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: "Interface"};   
     var serializedDiagram = JSON.stringify(diagram);
-    serializedDiagram = serializedDiagram.replace(/[\'\"\\\/\b\f\n\r\t]/g, ''); 
+    serializedDiagram = serializedDiagram.replace(/[\\]/g, ''); 
     var BB = self.Blob;
     saveAs(
           new BB(
@@ -3479,11 +3474,12 @@ function saveInterface() {
 
 function setInterfaceStack(modelname) {
     var INTERFACE_STACK = STACK;
+    var originalFigures = INTERFACE_STACK.figures.length;
     for (var i = 0; i<INTERFACE_STACK.figures.length; i++) {
         var figure = INTERFACE_STACK.figures[i];
         if(figure.name == "RoundedRectangle") {
             figure.primitives[1].str = modelname + " interface";
-            for (var j = 0; j<INTERFACE_STACK.figures.length; j++) {
+            for (var j = 0; j<originalFigures; j++) {
                 if(j!=i) {
                     INTERFACE_STACK.figureRemoveById(j);
                 }
@@ -3492,6 +3488,15 @@ function setInterfaceStack(modelname) {
         }
 
     }
+    var interfaceValue = "[";
+    interfaceValue += collectExternalVarableInputStr();
+    interfaceValue += collectExternalVarableOutputStr();
+    interfaceValue += collectinputEventStr();
+    interfaceValue += collectoutputEventStr();
+    interfaceValue += "]";
+    interfaceValue = interfaceValue.replace(/[\"]/g, '\''); 
+
+    INTERFACE_STACK.figures[0].hiddenStr = interfaceValue;
     INTERFACE_STACK.currentId = 1;
     INTERFACE_STACK.idToIndex = [0];
     return INTERFACE_STACK;
