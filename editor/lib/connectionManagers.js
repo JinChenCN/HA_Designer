@@ -1472,6 +1472,29 @@ ConnectorManager.prototype = {
         }
     },
 
+    connectionPointPaintInterface:function(context, parentFigureId){
+        var inputEventConnectionPoints = this.connectionPointGetAllByParentIdAndType(parentFigureId,ConnectionPoint.TYPE_INPUTEVENT);
+        var outputEventConnectionPoints = this.connectionPointGetAllByParentIdAndType(parentFigureId,ConnectionPoint.TYPE_OUTPUTEVENT);
+        var inputValueConnectionPoints = this.connectionPointGetAllByParentIdAndType(parentFigureId,ConnectionPoint.TYPE_INPUTVALUE);
+        var outputValueConnectionPoints = this.connectionPointGetAllByParentIdAndType(parentFigureId,ConnectionPoint.TYPE_OUTPUTVALUE);
+
+        for(var conPoint in inputEventConnectionPoints){
+            inputEventConnectionPoints[conPoint].paintInputEvent(context);
+        }
+
+        for(var conPoint in outputEventConnectionPoints){
+            outputEventConnectionPoints[conPoint].paintOutputEvent(context);
+        }
+
+        for(var conPoint in inputValueConnectionPoints){
+            inputValueConnectionPoints[conPoint].paintInputValue(context);
+        }
+
+        for(var conPoint in outputValueConnectionPoints){
+            outputValueConnectionPoints[conPoint].paintOutputValue(context);
+        }
+    },
+
 
     /**
      * Transform all ConnectionPoints of a  Figure

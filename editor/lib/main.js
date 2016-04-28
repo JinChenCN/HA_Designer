@@ -3456,8 +3456,17 @@ function saveInterface() {
     if (modelname == null || modelname == "") {
         modelname = "Interface";
     }
-    var INTERFACE_STACK = setInterfaceStack(modelname);
-    var INTERFACE_CONNECTOR_MANAGER = setInterfaceConnectors();
+
+    var interfaceValue = "[";
+    interfaceValue += collectExternalVarableInputStr();
+    interfaceValue += collectExternalVarableOutputStr();
+    interfaceValue += collectinputEventStr();
+    interfaceValue += collectoutputEventStr();
+    interfaceValue += "]";
+    interfaceValue = interfaceValue.replace(/[\"]/g, '\''); 
+
+    var INTERFACE_STACK = setInterfaceStack(modelname, interfaceValue);
+    var INTERFACE_CONNECTOR_MANAGER = setInterfaceConnectors(interfaceValue);
 
     var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: "Interface"};   
     var serializedDiagram = JSON.stringify(diagram);
@@ -3472,7 +3481,7 @@ function saveInterface() {
     );
 } 
 
-function setInterfaceStack(modelname) {
+function setInterfaceStack(modelname, interfaceValue) {
     var INTERFACE_STACK = STACK;
     var originalFigures = INTERFACE_STACK.figures.length;
     for (var i = 0; i<INTERFACE_STACK.figures.length; i++) {
@@ -3488,13 +3497,6 @@ function setInterfaceStack(modelname) {
         }
 
     }
-    var interfaceValue = "[";
-    interfaceValue += collectExternalVarableInputStr();
-    interfaceValue += collectExternalVarableOutputStr();
-    interfaceValue += collectinputEventStr();
-    interfaceValue += collectoutputEventStr();
-    interfaceValue += "]";
-    interfaceValue = interfaceValue.replace(/[\"]/g, '\''); 
 
     INTERFACE_STACK.figures[0].hiddenStr = interfaceValue;
     INTERFACE_STACK.currentId = 1;
@@ -3502,11 +3504,76 @@ function setInterfaceStack(modelname) {
     return INTERFACE_STACK;
 }
 
-function setInterfaceConnectors() {
+function setInterfaceConnectors(interfaceValue) {
+    var obj = eval('(' + interfaceValue + ')');
+    var ExternalVarableInput = obj[0].ExternalVarableInput;
+    var ExternalVarableOutput = obj[1].ExternalVarableOutput;
+    var inputEvents = obj[2].inputEvents;
+    var outputEvents = obj[3].outputEvents;
+
     var INTERFACE_CONNECTOR_MANAGER = CONNECTOR_MANAGER;
     INTERFACE_CONNECTOR_MANAGER.connectors = [];
     INTERFACE_CONNECTOR_MANAGER.glues = [];
+
+    var points = INTERFACE_CONNECTOR_MANAGER.connectionPoints;
     INTERFACE_CONNECTOR_MANAGER.connectionPoints = [];
+    INTERFACE_CONNECTOR_MANAGER.connectionPointCurrentId = 0;
+
+    if (ExternalVarableInput.length != 0) {
+        for (var i = 0; i <ExternalVarableInput.length; i++) {
+            INTERFACE_CONNECTOR_MANAGER.connectionPointCreate(points[10].parentId, new Point(points[10].point.x, (points[10].point.y + 5*(i+1))), ConnectionPoint.TYPE_INPUTVALUE);
+        }
+    }
+
+    if (ExternalVarableOutput.length != 0) {
+        for (var i = 0; i <ExternalVarableOutput.length; i++) {
+            INTERFACE_CONNECTOR_MANAGER.connectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[10].point.y + 5*(i+1))), ConnectionPoint.TYPE_OUTPUTVALUE);
+        }
+    }
+
+    if (inputEvents.length != 0) {
+        for (var i = 0; i <inputEvents.length; i++) {
+            INTERFACE_CONNECTOR_MANAGER.connectionPointCreate(points[10].parentId, new Point(points[10].point.x, (points[10].point.y - 5*(i+1))), ConnectionPoint.TYPE_INPUTEVENT);
+        }
+    }
+
+    if (outputEvents.length != 0) {
+        for (var i = 0; i <outputEvents.length; i++) {
+            INTERFACE_CONNECTOR_MANAGER.connectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[10].point.y - 5*(i+1))), ConnectionPoint.TYPE_OUTPUTEVENT);
+        }
+    }
+    /*var points = INTERFACE_CONNECTOR_MANAGER.connectionPoints;
+    var startNumber = 0;
+    if (ExternalVarableInput.length != 0) {
+        startNumber = ExternalVarableInput.length;
+        for (var i = 0; i <ExternalVarableInput.length; i++) {
+            points[i].type = ConnectionPoint.TYPE_INPUTVALUE;
+        }
+    }
+
+    if (ExternalVarableOutput.length != 0) {
+        for (var i = startNumber; i < startNumber + ExternalVarableOutput.length; i++) {
+            points[i].type = ConnectionPoint.TYPE_OUTPUTVALUE;
+        }
+        startNumber = startNumber + ExternalVarableOutput.length;
+    }
+
+    if (inputEvents.length != 0) {
+        for (var i = startNumber; i <startNumber + inputEvents.length; i++) {
+            points[i].type = ConnectionPoint.TYPE_INPUTEVENT;
+        }
+        startNumber = startNumber + inputEvents.length;
+    }
+
+    if (outputEvents.length != 0) {
+        for (var i = startNumber; i <startNumber + outputEvents.length; i++) {
+            points[i].type = ConnectionPoint.TYPE_OUTPUTEVENT;
+        }
+        startNumber = startNumber + outputEvents.length;
+    }
+
+    points.splice(startNumber, points.length-startNumber); */
+
     return INTERFACE_CONNECTOR_MANAGER;
 }
 
