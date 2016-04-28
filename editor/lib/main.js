@@ -3506,6 +3506,7 @@ function setInterfaceConnectors() {
     var INTERFACE_CONNECTOR_MANAGER = CONNECTOR_MANAGER;
     INTERFACE_CONNECTOR_MANAGER.connectors = [];
     INTERFACE_CONNECTOR_MANAGER.glues = [];
+    INTERFACE_CONNECTOR_MANAGER.connectionPoints = [];
     return INTERFACE_CONNECTOR_MANAGER;
 }
 
@@ -4361,6 +4362,7 @@ function fileToReload(evt) {
                 } 
             }else
             {
+                var currentId = 0;
                 var file = files[0];
                 //  var start = parseInt(opt_startByte) || 0;
                 //  var stop = parseInt(opt_stopByte) || file.size - 1;
@@ -4371,6 +4373,9 @@ function fileToReload(evt) {
                 if (evt1.target.readyState == FileReader.DONE) { // DONE == 2
                     var obj = eval('(' + evt1.target.result + ')');
                     STACK = Stack.load(obj['s']);
+                    currentId = STACK.currentId;
+                    CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
+                    document.getElementById("txtModelName").value = obj['mn'];
                     if(files.length == 1) {
                        try {
                             draw();
@@ -4378,8 +4383,6 @@ function fileToReload(evt) {
                                 alert("main.js:fileToReload() Exception: " + error);
                             } 
                     } 
-                    //CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
-                    //CONTAINER_MANAGER = ContainerFigureManager.load(obj['p']);
                 }
                 } 
                        
@@ -4390,12 +4393,25 @@ function fileToReload(evt) {
                     interfaceReader.onloadend = function (evt1) {
                     if (evt1.target.readyState == FileReader.DONE) { // DONE == 2
                         var obj = eval('(' + evt1.target.result + ')');
-                        STACK.figureAdd(Figure.load(obj['s']['figures'][0]));
+                        var newFigure = Figure.load(obj['s']['figures'][0]);
+                        newFigure.id = currentId;
+                        STACK.figureAdd(newFigure);
+                        STACK.currentId = currentId + 1;
+
+                        var newCONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
+                        var origianlCurrentId = CONNECTOR_MANAGER.connectionPointCurrentId;
+                        var newCurrentId = newCONNECTOR_MANAGER.connectionPointCurrentId;
+                        var newPoints = newCONNECTOR_MANAGER.connectionPoints;
+
+                        for(var k = 0; k < newPoints.length; k++)
+                        {
+                            newPoints[k].id = newPoints[k].id + origianlCurrentId;
+                            newPoints[k].parentId = currentId;
+                            CONNECTOR_MANAGER.connectionPoints.push(newPoints[k]);
+                        }
+                        CONNECTOR_MANAGER.connectionPointCurrentId = origianlCurrentId + newCurrentId;
+                        currentId ++;
                         if(i == files.length) {
-                            for(var j = 0; j < STACK.figures.length; j++)
-                            {
-                                STACK.figures[j].id = j;
-                            }
                             try {
                             draw();
 
