@@ -2648,6 +2648,8 @@ function connectorPickFirst(x, y, ev) {
         conCps[0].point.x = fCp.point.x;
         conCps[0].point.y = fCp.point.y;
 
+        conCps[0].info = fCp.info;
+
         //update connector's turning point
         con.turningPoints[0].x = fCp.point.x;
         con.turningPoints[0].y = fCp.point.y;
@@ -2725,6 +2727,11 @@ function connectorPickSecond(x, y, ev) {
 
         if (fCpOverId != -1) { //Are we over a ConnectionPoint from a Figure?
             var r_figureConnectionPoint = CONNECTOR_MANAGER.connectionPointGetById(fCpOverId);
+            if (cps[0].info.Type != r_figureConnectionPoint.info.Type)
+            {
+                alert("Only points of same types can be connected! ");
+                return;
+            }
             Log.info("End Figure's ConnectionPoint present id = " + fCpOverId);
 
             //As we found the connection point by a vicinity (so not exactly x,y match) we will adjust the end point too
@@ -2787,6 +2794,11 @@ function connectorPickSecond(x, y, ev) {
 
     var firstConPoint = CONNECTOR_MANAGER.connectionPointGetFirstForConnector(selectedConnectorId);
     var secConPoint = CONNECTOR_MANAGER.connectionPointGetSecondForConnector(selectedConnectorId);
+
+    /*if(firstConPoint.info.Type != secConPoint.info.Type) {
+        alert ( "Only points of same types can be connected! " )
+        return;
+    }*/
     //adjust connector
     Log.info("connectorPickSecond() -> Solution: " + DIAGRAMO.debugSolutions[0][2]);
 
