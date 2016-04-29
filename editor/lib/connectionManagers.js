@@ -1325,6 +1325,13 @@ ConnectorManager.prototype = {
         return conPoint;
     },
 
+    interfaceConnectionPointCreate:function(parentId, point, type, info){
+        var conPoint = new ConnectionPoint(parentId, point.clone(), this.connectionPointCurrentId++, type, info);
+        this.connectionPoints.push(conPoint);
+        
+        return conPoint;
+    },
+
 
     /**Adds an existing ConnectionPoint to the connectionPoints array
      *@param {ConnectionPoint} connectionPoint - the ConnectionPoint to add

@@ -91,6 +91,10 @@ function collectExternalVarableOutputStr() {
 }
 
 function isAssociated(i) {
+  if(DIAGRAMO.interfaceMode)
+  {
+    return false;
+  }
   var isAssociated = false;
   for (var j = 1; j <= 20; j++) {
     if (document.getElementById("txtoutputEvent" + j) == null) 

@@ -1435,7 +1435,7 @@ Connector.prototype = {
  *@author Zack Newsham <zack_newsham@yahoo.co.uk>
  *@author Alex Gheorghiu <alex@scriptoid.com>
  */
-function ConnectionPoint(parentId,point,id, type){
+function ConnectionPoint(parentId,point,id, type, info){
     /**Connection point id*/
     this.id = id;
     
@@ -1456,6 +1456,8 @@ function ConnectionPoint(parentId,point,id, type){
     
     /**Serialization type*/
     this.oType = 'ConnectionPoint'; //object type used for JSON deserialization
+
+    this.info = info;
 
 }
 
@@ -1538,7 +1540,7 @@ ConnectionPoint.prototype = {
      **/
     clone: function(){
         //parentId,point,id, type
-        return new ConnectionPoint(this.parentId, this.point.clone(), this.id, this.type );
+        return new ConnectionPoint(this.parentId, this.point.clone(), this.id, this.type, this.info );
     },
     
     /**Compares to another ConnectionPoint

@@ -3466,7 +3466,7 @@ function saveInterface() {
     interfaceValue = interfaceValue.replace(/[\"]/g, '\''); 
 
     var INTERFACE_STACK = setInterfaceStack(modelname, interfaceValue);
-    var INTERFACE_CONNECTOR_MANAGER = setInterfaceConnectors(interfaceValue);
+    var INTERFACE_CONNECTOR_MANAGER = setInterfaceConnectors(modelname, interfaceValue);
 
     var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: "Interface"};   
     var serializedDiagram = JSON.stringify(diagram);
@@ -3504,7 +3504,7 @@ function setInterfaceStack(modelname, interfaceValue) {
     return INTERFACE_STACK;
 }
 
-function setInterfaceConnectors(interfaceValue) {
+function setInterfaceConnectors(modelname, interfaceValue) {
     var obj = eval('(' + interfaceValue + ')');
     var ExternalVarableInput = obj[0].ExternalVarableInput;
     var ExternalVarableOutput = obj[1].ExternalVarableOutput;
@@ -3521,25 +3521,33 @@ function setInterfaceConnectors(interfaceValue) {
 
     if (ExternalVarableInput.length != 0) {
         for (var i = 0; i <ExternalVarableInput.length; i++) {
-            INTERFACE_CONNECTOR_MANAGER.connectionPointCreate(points[10].parentId, new Point(points[10].point.x, (points[10].point.y + 5*(i+1))), ConnectionPoint.TYPE_INPUTVALUE);
+            var info = ExternalVarableInput[i];
+            info.modelname = modelname;
+            INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[10].parentId, new Point(points[10].point.x, (points[10].point.y + 5*(i+1))), ConnectionPoint.TYPE_INPUTVALUE, info);
         }
     }
 
     if (ExternalVarableOutput.length != 0) {
         for (var i = 0; i <ExternalVarableOutput.length; i++) {
-            INTERFACE_CONNECTOR_MANAGER.connectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[10].point.y + 5*(i+1))), ConnectionPoint.TYPE_OUTPUTVALUE);
+            var info = ExternalVarableOutput[i];
+            info.modelname = modelname;
+            INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[10].point.y + 5*(i+1))), ConnectionPoint.TYPE_OUTPUTVALUE, info);
         }
     }
 
     if (inputEvents.length != 0) {
         for (var i = 0; i <inputEvents.length; i++) {
-            INTERFACE_CONNECTOR_MANAGER.connectionPointCreate(points[10].parentId, new Point(points[10].point.x, (points[10].point.y - 5*(i+1))), ConnectionPoint.TYPE_INPUTEVENT);
+              var info = inputEvents[i];
+              info.modelname = modelname;
+            INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[10].parentId, new Point(points[10].point.x, (points[10].point.y - 5*(i+1))), ConnectionPoint.TYPE_INPUTEVENT, info);
         }
     }
 
     if (outputEvents.length != 0) {
         for (var i = 0; i <outputEvents.length; i++) {
-            INTERFACE_CONNECTOR_MANAGER.connectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[10].point.y - 5*(i+1))), ConnectionPoint.TYPE_OUTPUTEVENT);
+              var info = outputEvents[i];
+              info.modelname = modelname;
+            INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[10].point.y - 5*(i+1))), ConnectionPoint.TYPE_OUTPUTEVENT, info);
         }
     }
     /*var points = INTERFACE_CONNECTOR_MANAGER.connectionPoints;
