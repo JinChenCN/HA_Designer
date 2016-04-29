@@ -3566,7 +3566,7 @@ function saveInterface() {
     var INTERFACE_STACK = setInterfaceStack(modelname, interfaceValue);
     var INTERFACE_CONNECTOR_MANAGER = setInterfaceConnectors(modelname, interfaceValue);
 
-    var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: "Interface"};   
+    var diagram = { c: canvasProps, s: INTERFACE_STACK, m: INTERFACE_CONNECTOR_MANAGER, p: CONTAINER_MANAGER, v: DIAGRAMO.fileVersion, mn: modelname + "_Interface"};   
     var serializedDiagram = JSON.stringify(diagram);
     serializedDiagram = serializedDiagram.replace(/[\\]/g, ''); 
     var BB = self.Blob;
@@ -4580,6 +4580,9 @@ function fileToReload(evt) {
                         newFigure.id = currentId;
                         STACK.figureAdd(newFigure);
                         STACK.currentId = currentId + 1;
+
+                        var res = document.getElementById("txtModelName").value.split("_Interface");
+                        document.getElementById("txtModelName").value =  res[0] + "_" + obj['mn'];
 
                         var newCONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
                         var origianlCurrentId = CONNECTOR_MANAGER.connectionPointCurrentId;
