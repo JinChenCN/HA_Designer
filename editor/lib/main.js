@@ -3697,9 +3697,17 @@ function getConnectionPointByTypeAndName(INTERFACE_CONNECTOR_MANAGER, type, name
  * Export can be triggered in 1 cases:
  *  1 - from menu
   @author zhenqin Zhan 
+  @author Jin Chen
  **/
 function exportJasons() {
-    var serializedDiagram = returnModelInfoInJasonFormat();
+    var serializedDiagram;
+    if(DIAGRAMO.interfaceMode){
+        serializedDiagram = returnInterfaceInJasonFormat();
+    } else {
+        serializedDiagram = returnModelInfoInJasonFormat();
+    }
+
+
     var BB = self.Blob;
 
     var modelname = document.getElementById("txtModelName").value;
@@ -5095,6 +5103,39 @@ function addOptionsForOption_paras() {
         }
     }
 
+}
+
+function returnInterfaceInJasonFormat() {
+    var outputJson = "{ \"modelName\": \"" + document.getElementById("txtModelName").value + "\",";
+    outputJson +=  "\"connections\":["; 
+    var hasToAddComma = false;
+    for (var i = 0; i < CONNECTOR_MANAGER.connectors.length ; i++) {
+        var obj = CONNECTOR_MANAGER.connectors[i];
+        if (obj == null) {
+            continue;
+        }
+        var connectorStr = "";
+        if (hasToAddComma) {
+
+            connectorStr += ",{";
+        }
+        else {
+            connectorStr += "{";
+        }
+
+        connectorStr += "\"id\":\"" + obj.id + "\"";
+        connectorStr += ", \"startPoint\": " + JSON.stringify(obj.startPointInfo);
+        connectorStr += ", \"endPoint\": " + JSON.stringify(obj.endPointInfo);
+
+        connectorStr += "}";
+        outputJson += connectorStr;
+        hasToAddComma = true;
+    }
+
+    outputJson += "]}";
+
+    outputJson = outputJson.replace(/\n/g, "\\n")
+    return outputJson;
 }
 
 
