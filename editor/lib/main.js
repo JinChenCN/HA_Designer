@@ -1986,8 +1986,7 @@ function checkCon(con) {
         return false;
     }
 
-    if((startConnectionPoint.info.Type != "ANY" && endConnectionPoint.info.Type != startConnectionPoint.info.Type) || 
-        (endConnectionPoint.info.Type != "ANY" && endConnectionPoint.info.Type != startConnectionPoint.info.Type))
+    if(!(startConnectionPoint.info.Type == "ANY" || endConnectionPoint.info.Type == startConnectionPoint.info.Type || endConnectionPoint.info.Type == "ANY"))
     {
         alert("Only points of same types can be connected! ");
         return false;
