@@ -1894,6 +1894,19 @@ function onMouseUp(ev) {
         case STATE_CONNECTOR_PICK_SECOND:
 
             //store undo command
+            if(DIAGRAMO.interfaceMode){
+                var conForCheck = CONNECTOR_MANAGER.connectorGetById(selectedConnectorId);
+                var checkResult = checkCon(conForCheck);
+                if(!checkResult)
+                {
+                    CONNECTOR_MANAGER.connectorRemoveById(conForCheck.id);
+                    redraw  = true;
+                    draw();
+                    state = STATE_CONNECTOR_PICK_FIRST;
+                    return;
+                }
+            }
+
             var cmdCreateCon = new ConnectorCreateCommand(selectedConnectorId);
             History.addUndo(cmdCreateCon);
 
@@ -1948,6 +1961,42 @@ function onMouseUp(ev) {
     currentMoveUndo = null;
     mousePressed = false;
     draw();
+}
+
+function checkCon(con) {
+    var start = con.turningPoints[0];
+    var end = con.turningPoints[con.turningPoints.length-1];
+    var startConnectionPoint = CONNECTOR_MANAGER.connectionPointGetById(CONNECTOR_MANAGER.connectionPointGetByXY(start.x, start.y));
+    var endConnectionPoint = CONNECTOR_MANAGER.connectionPointGetById(CONNECTOR_MANAGER.connectionPointGetByXY(end.x, end.y));
+    if(endConnectionPoint == null || !startConnectionPoint.info || !endConnectionPoint.info )
+    {
+        alert("Please select a valid point.");
+        return false;
+    }
+
+    if(startConnectionPoint.type == ConnectionPoint.TYPE_OUTPUTEVENT && endConnectionPoint.type == ConnectionPoint.TYPE_OUTPUTEVENT)
+    {
+        alert("An output event can only be connected to an inpput event.");
+        return false;
+    }
+
+    if(startConnectionPoint.type == ConnectionPoint.TYPE_OUTPUTVALUE && endConnectionPoint.type == ConnectionPoint.TYPE_OUTPUTVALUE)
+    {
+        alert("An output value can only be connected to an inpput value.");
+        return false;
+    }
+
+    if((startConnectionPoint.info.Type != "ANY" && endConnectionPoint.info.Type != startConnectionPoint.info.Type) || 
+        (endConnectionPoint.info.Type != "ANY" && endConnectionPoint.info.Type != startConnectionPoint.info.Type))
+    {
+        alert("Only points of same types can be connected! ");
+        return false;
+    }
+
+    CONNECTOR_MANAGER.connectorGetById(con.id).startPointInfo = startConnectionPoint.info;
+    CONNECTOR_MANAGER.connectorGetById(con.id).endPointInfo = endConnectionPoint.info;
+
+    return true;
 }
 
 /**Remembers last move. Initially it's null but once set it's a [x,y] array*/
@@ -2657,11 +2706,13 @@ function connectorPickFirst(x, y, ev) {
         {
             if (fCp.type == ConnectionPoint.TYPE_INPUTEVENT) {
                 alert("Please select an output event first. ");
+                CONNECTOR_MANAGER.connectorRemove(con);
                 return;
             }
 
             if (fCp.type == ConnectionPoint.TYPE_INPUTVALUE) {
                 alert("Please select an output value first. ");
+                CONNECTOR_MANAGER.connectorRemove(con);
                 return;
             }
 
@@ -2759,39 +2810,6 @@ function connectorPickSecond(x, y, ev) {
 
         if (fCpOverId != -1) { //Are we over a ConnectionPoint from a Figure?
             var r_figureConnectionPoint = CONNECTOR_MANAGER.connectionPointGetById(fCpOverId);
-            if(DIAGRAMO.interfaceMode)
-            {
-                if (cps[0].info.Type != r_figureConnectionPoint.info.Type)
-                {
-                    alert("Only points of same types can be connected! ");
-                    return;
-                }
-
-                if (cps[0].type == ConnectionPoint.TYPE_OUTPUTEVENT && r_figureConnectionPoint.type == ConnectionPoint.TYPE_OUTPUTEVENT)
-                {
-                    alert("An output event can only be connected to an input event! ");
-                    return;
-                }
-
-                if (cps[0].type == ConnectionPoint.TYPE_OUTPUTVALUE && r_figureConnectionPoint.type == ConnectionPoint.TYPE_OUTPUTVALUE)
-                {
-                    alert("An output value can only be connected to an input value! ");
-                    return;
-                }
-
-                cps[1].info = r_figureConnectionPoint.info;
-
-                for(var k = 0; k < CONNECTOR_MANAGER.connectors.length; k++)
-                {
-                    if (CONNECTOR_MANAGER.connectors[k].id == con.id){
-                        CONNECTOR_MANAGER.connectors[k].startPointInfo = cps[0].info;
-                        CONNECTOR_MANAGER.connectors[k].endPointInfo = cps[1].info;
-                        break;
-                    }
-                }
-
-            }
-
 
             Log.info("End Figure's ConnectionPoint present id = " + fCpOverId);
 
@@ -2801,7 +2819,9 @@ function connectorPickSecond(x, y, ev) {
             rEndPoint = r_figureConnectionPoint.point.clone();
 
             rEndFigure = STACK.figureGetById(r_figureConnectionPoint.parentId);
-            Log.info(":) WE HAVE AN END FIGURE id = " + rEndFigure.id);
+            if(rEndFigure != null) {
+                Log.info(":) WE HAVE AN END FIGURE id = " + rEndFigure.id);
+            }
         } else if (fOverId != -1) {  //Are we, at least, over a Figure?
             Log.info("End Figure connected as automatic");
 
@@ -3527,6 +3547,10 @@ function save() {
 }
 
 function saveInterface() {
+    var mode = DIAGRAMO.interfaceMode;
+    if(!mode){
+        DIAGRAMO.interfaceMode = true;
+    }
     var modelname = document.getElementById("txtModelName").value;
     if (modelname == null || modelname == "") {
         modelname = "Interface";
@@ -3554,6 +3578,10 @@ function saveInterface() {
             )
         , modelname + "_Interface.txt"
     );
+
+    if(!mode){
+        DIAGRAMO.interfaceMode = false;
+    }
 } 
 
 function setInterfaceStack(modelname, interfaceValue) {
@@ -3606,7 +3634,7 @@ function setInterfaceConnectors(modelname, interfaceValue) {
         for (var i = 0; i <ExternalVarableOutput.length; i++) {
             var info = ExternalVarableOutput[i];
             info.modelname = modelname;
-            INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[10].point.y + 5*(i+1))), ConnectionPoint.TYPE_OUTPUTVALUE, info);
+            INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[4].point.y + 5*(i+1))), ConnectionPoint.TYPE_OUTPUTVALUE, info);
         }
     }
 
@@ -3615,6 +3643,18 @@ function setInterfaceConnectors(modelname, interfaceValue) {
               var info = inputEvents[i];
               info.modelname = modelname;
             INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[10].parentId, new Point(points[10].point.x, (points[10].point.y - 5*(i+1))), ConnectionPoint.TYPE_INPUTEVENT, info);
+           /* if (info.variables.length != 0)
+            {
+                for (var j = 0; j < info.variables.length; j++)
+                {
+                    var variableName = info.variables[j].variableName;
+                    var inputValuePoint = getConnectionPointByTypeAndName(INTERFACE_CONNECTOR_MANAGER, ConnectionPoint.TYPE_INPUTVALUE, variableName);
+                    var conId = INTERFACE_CONNECTOR_MANAGER.connectorCreate(new Point(points[10].point.x, (points[10].point.y - 5*(i+1))), new Point(inputValuePoint.point.x, inputValuePoint.point.y), Connector.TYPE_JAGGED);
+                    var con = INTERFACE_CONNECTOR_MANAGER.connectorGetById(conId);
+                    con.turningPoints[0].x = points[10].point.x;
+                    con.turningPoints[0].y = points[10].point.y - 5*(i+1));
+                }
+            }*/
         }
     }
 
@@ -3622,42 +3662,36 @@ function setInterfaceConnectors(modelname, interfaceValue) {
         for (var i = 0; i <outputEvents.length; i++) {
               var info = outputEvents[i];
               info.modelname = modelname;
-            INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[10].point.y - 5*(i+1))), ConnectionPoint.TYPE_OUTPUTEVENT, info);
+            INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[4].parentId, new Point(points[4].point.x, (points[4].point.y - 5*(i+1))), ConnectionPoint.TYPE_OUTPUTEVENT, info);
+           /*  if (info.variables.length != 0)
+            {
+                for (var j = 0; j < info.variables.length; j++)
+                {
+                    var variableName = info.variables[j].variableName;
+                    var outputValuePoint = getConnectionPointByTypeAndName(INTERFACE_CONNECTOR_MANAGER, ConnectionPoint.TYPE_OUTPUTVALUE, variableName);
+                    var conId = INTERFACE_CONNECTOR_MANAGER.connectorCreate(new Point(points[4].point.x, (points[4].point.y - 5*(i+1))), new Point(outputValuePoint.point.x, outputValuePoint.point.y), Connector.TYPE_JAGGED);
+                    var con = INTERFACE_CONNECTOR_MANAGER.connectorGetById(conId);
+                    con.turningPoints[0].x = points[4].point.x;
+                    con.turningPoints[0].y = points[4].point.y - 5*(i+1)); 
+                }
+            }*/
         }
     }
-    /*var points = INTERFACE_CONNECTOR_MANAGER.connectionPoints;
-    var startNumber = 0;
-    if (ExternalVarableInput.length != 0) {
-        startNumber = ExternalVarableInput.length;
-        for (var i = 0; i <ExternalVarableInput.length; i++) {
-            points[i].type = ConnectionPoint.TYPE_INPUTVALUE;
-        }
-    }
-
-    if (ExternalVarableOutput.length != 0) {
-        for (var i = startNumber; i < startNumber + ExternalVarableOutput.length; i++) {
-            points[i].type = ConnectionPoint.TYPE_OUTPUTVALUE;
-        }
-        startNumber = startNumber + ExternalVarableOutput.length;
-    }
-
-    if (inputEvents.length != 0) {
-        for (var i = startNumber; i <startNumber + inputEvents.length; i++) {
-            points[i].type = ConnectionPoint.TYPE_INPUTEVENT;
-        }
-        startNumber = startNumber + inputEvents.length;
-    }
-
-    if (outputEvents.length != 0) {
-        for (var i = startNumber; i <startNumber + outputEvents.length; i++) {
-            points[i].type = ConnectionPoint.TYPE_OUTPUTEVENT;
-        }
-        startNumber = startNumber + outputEvents.length;
-    }
-
-    points.splice(startNumber, points.length-startNumber); */
 
     return INTERFACE_CONNECTOR_MANAGER;
+}
+
+function getConnectionPointByTypeAndName(INTERFACE_CONNECTOR_MANAGER, type, name)
+{
+    for (var i = 0; i < INTERFACE_CONNECTOR_MANAGER.connectionPoints.length; i++)
+    {
+        if(INTERFACE_CONNECTOR_MANAGER.connectionPoints[i].type == type && INTERFACE_CONNECTOR_MANAGER.connectionPoints[i].info.Name == name)
+        {
+            return INTERFACE_CONNECTOR_MANAGER.connectionPoints[i];
+        }
+
+    }
+    return null;
 }
 
 /** Export jasons string about the current diagram 

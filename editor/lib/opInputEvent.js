@@ -75,11 +75,11 @@ function collectinputEventStr() {
             var typeId = variablesId[k].insert(variablesId[k].length-1, "ValueType");
             var variableType = document.getElementById(typeId).value;
             var nameId = "txt"+variablesId[k];
-            var varibaleName = document.getElementById(nameId).value;
+            var variableName = document.getElementById(nameId).value;
             var valueId = "txt"+variablesId[k].insert(variablesId[k].length-1, "Value");
             var varibaleValue = document.getElementById(valueId).value;
 
-            variableValues += "{\"variableType\":\"" + variableType + "\",\"varibaleName\":\"" + varibaleName + "\",\"varibaleValue\":\"" + varibaleValue + "\"}";
+            variableValues += "{\"variableType\":\"" + variableType + "\",\"variableName\":\"" + variableName + "\",\"varibaleValue\":\"" + varibaleValue + "\"}";
             
             if(k != variablesId.length-1)
             {
