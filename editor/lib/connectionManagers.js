@@ -1243,11 +1243,20 @@ ConnectorManager.prototype = {
         var id = -1;
 
         for(var i=0; i<this.connectionPoints.length; i++){
+            if(DIAGRAMO.interfaceMode)
+            {
+                if( this.connectionPoints[i].contains(x,y)){
+                id = this.connectionPoints[i].id;
+                break;
+            } }
+            else
+            {
             if( this.connectionPoints[i].contains(x,y) && this.connectionPoints[i].type == type ){
                 id = this.connectionPoints[i].id;
                 break;
             }
         }
+    }
 
         return id;
     },

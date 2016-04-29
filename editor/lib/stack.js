@@ -951,7 +951,7 @@ Stack.prototype = {
 
             //if we are connecting something we should paint connection points too
             if (state == STATE_CONNECTOR_PICK_FIRST || state == STATE_CONNECTOR_PICK_SECOND
-                || state == STATE_CONNECTOR_MOVE_POINT) {
+                || state == STATE_CONNECTOR_MOVE_POINT || DIAGRAMO.interfaceMode) {
                     CONNECTOR_MANAGER.connectionPointPaint(context, this.figures[i].id);
             }
 

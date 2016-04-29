@@ -1571,22 +1571,22 @@ ConnectionPoint.prototype = {
         switch (this.type) {
             case ConnectionPoint.TYPE_INPUTEVENT:
                 context.font = "12px Arial";
-                context.fillStyle = "black";
+                context.fillStyle = '#072CD4';
                 context.fillText("Input Event", this.point.x-65, this.point.y);
                 break;
             case ConnectionPoint.TYPE_OUTPUTEVENT:
                 context.font = "12px Arial";
-                context.fillStyle = "black";
+                context.fillStyle = '#13D407';
                 context.fillText("Output Event", this.point.x, this.point.y);
                 break;
             case ConnectionPoint.TYPE_INPUTVALUE:
                 context.font = "12px Arial";
-                context.fillStyle = "black";
+                context.fillStyle = '#BE07D4';
                 context.fillText("Input Value", this.point.x-65, this.point.y);
                 break;
             case ConnectionPoint.TYPE_OUTPUTVALUE:
                 context.font = "12px Arial";
-                context.fillStyle = "black";
+                context.fillStyle = '#D40739';
                 context.fillText("Output Value", this.point.x, this.point.y);
                 break;
             default:
