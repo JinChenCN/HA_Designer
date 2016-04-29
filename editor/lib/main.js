@@ -2640,9 +2640,32 @@ function connectorPickFirst(x, y, ev) {
     //get the ConnectionPoint's id if we are over it (and belonging to a figure)
     var fCpOverId = CONNECTOR_MANAGER.connectionPointGetByXY(x, y, ConnectionPoint.TYPE_FIGURE); //find figure's CP
 
+    if(DIAGRAMO.interfaceMode)
+    {
+        if (fCpOverId == -1) {
+            return;
+        }
+
+    }
+
+
     //see if we can snap to a figure
     if (fCpOverId != -1) { //Are we over a ConnectionPoint from a Figure?
         var fCp = CONNECTOR_MANAGER.connectionPointGetById(fCpOverId);
+
+        if(DIAGRAMO.interfaceMode)
+        {
+            if (fCp.type == ConnectionPoint.TYPE_INPUTEVENT) {
+                alert("Please select an output event first. ");
+                return;
+            }
+
+            if (fCp.type == ConnectionPoint.TYPE_INPUTVALUE) {
+                alert("Please select an output value first. ");
+                return;
+            }
+
+        }
 
         //update connector' cp
         conCps[0].point.x = fCp.point.x;
@@ -2655,6 +2678,8 @@ function connectorPickFirst(x, y, ev) {
         con.turningPoints[0].y = fCp.point.y;
 
         var g = CONNECTOR_MANAGER.glueCreate(fCp.id, conCps[0].id, false);
+
+
         Log.info("First glue created : " + g);
         //alert('First glue ' + g);
     } else if (fOverId !== -1) { //Are we, at least, over the {Figure}?
@@ -2725,14 +2750,52 @@ function connectorPickSecond(x, y, ev) {
         var rEndPoint = new Point(x, y);
         var rEndFigure = null;
 
-        if (fCpOverId != -1) { //Are we over a ConnectionPoint from a Figure?
-            var r_figureConnectionPoint = CONNECTOR_MANAGER.connectionPointGetById(fCpOverId);
-            if (cps[0].info.Type != r_figureConnectionPoint.info.Type)
-            {
-                alert("Only points of same types can be connected! ");
+        if(DIAGRAMO.interfaceMode)
+        {
+            if (fCpOverId == -1) {
                 return;
             }
+        }
+
+        if (fCpOverId != -1) { //Are we over a ConnectionPoint from a Figure?
+            var r_figureConnectionPoint = CONNECTOR_MANAGER.connectionPointGetById(fCpOverId);
+            if(DIAGRAMO.interfaceMode)
+            {
+                if (cps[0].info.Type != r_figureConnectionPoint.info.Type)
+                {
+                    alert("Only points of same types can be connected! ");
+                    return;
+                }
+
+                if (cps[0].type == ConnectionPoint.TYPE_OUTPUTEVENT && r_figureConnectionPoint.type == ConnectionPoint.TYPE_OUTPUTEVENT)
+                {
+                    alert("An output event can only be connected to an input event! ");
+                    return;
+                }
+
+                if (cps[0].type == ConnectionPoint.TYPE_OUTPUTVALUE && r_figureConnectionPoint.type == ConnectionPoint.TYPE_OUTPUTVALUE)
+                {
+                    alert("An output value can only be connected to an input value! ");
+                    return;
+                }
+
+                cps[1].info = r_figureConnectionPoint.info;
+
+                for(var k = 0; k < CONNECTOR_MANAGER.connectors.length; k++)
+                {
+                    if (CONNECTOR_MANAGER.connectors[k].id == con.id){
+                        CONNECTOR_MANAGER.connectors[k].startPointInfo = cps[0].info;
+                        CONNECTOR_MANAGER.connectors[k].endPointInfo = cps[1].info;
+                        break;
+                    }
+                }
+
+            }
+
+
             Log.info("End Figure's ConnectionPoint present id = " + fCpOverId);
+
+            
 
             //As we found the connection point by a vicinity (so not exactly x,y match) we will adjust the end point too
             rEndPoint = r_figureConnectionPoint.point.clone();
