@@ -46,7 +46,8 @@ var DIAGRAMO = {
     CANVAS_FIT_PADDING: 10,
 
     /** enable/disable openning of multiple diagrams */
-    interfaceMode: false
+    interfaceMode: false,
+    saveInterfaceMode: false
 };
 
 
@@ -1894,7 +1895,7 @@ function onMouseUp(ev) {
         case STATE_CONNECTOR_PICK_SECOND:
 
             //store undo command
-            if(DIAGRAMO.interfaceMode){
+            if(DIAGRAMO.interfaceMode && !DIAGRAMO.saveInterfaceMode){
                 var conForCheck = CONNECTOR_MANAGER.connectorGetById(selectedConnectorId);
                 var checkResult = checkCon(conForCheck);
                 if(!checkResult)
@@ -2764,6 +2765,7 @@ function connectorPickFirst(x, y, ev) {
 }
 
 
+
 /**Pick the second {ConnectorPoint}  we can get at (x,y) position
  *@param {Number} x - the x position 
  *@param {Number} y - the y position 
@@ -2914,7 +2916,6 @@ function connectorPickSecond(x, y, ev) {
 
     Log.groupEnd();
 }
-
 
 /**
  *Alter the {Connector}  in real time
@@ -3642,18 +3643,24 @@ function setInterfaceConnectors(modelname, interfaceValue) {
               var info = inputEvents[i];
               info.modelname = modelname;
             INTERFACE_CONNECTOR_MANAGER.interfaceConnectionPointCreate(points[10].parentId, new Point(points[10].point.x, (points[10].point.y - 5*(i+1))), ConnectionPoint.TYPE_INPUTEVENT, info);
-           /* if (info.variables.length != 0)
+            /*if (info.variables.length != 0)
             {
                 for (var j = 0; j < info.variables.length; j++)
                 {
                     var variableName = info.variables[j].variableName;
                     var inputValuePoint = getConnectionPointByTypeAndName(INTERFACE_CONNECTOR_MANAGER, ConnectionPoint.TYPE_INPUTVALUE, variableName);
-                    var conId = INTERFACE_CONNECTOR_MANAGER.connectorCreate(new Point(points[10].point.x, (points[10].point.y - 5*(i+1))), new Point(inputValuePoint.point.x, inputValuePoint.point.y), Connector.TYPE_JAGGED);
-                    var con = INTERFACE_CONNECTOR_MANAGER.connectorGetById(conId);
-                    con.turningPoints[0].x = points[10].point.x;
-                    con.turningPoints[0].y = points[10].point.y - 5*(i+1));
+                    DIAGRAMO.saveInterfaceMode = true;
+                    connectorPickFirst(points[10].point.x, points[10].point.y - 5*(i+1), Connector.TYPE_JAGGED);
+                    connectorPickSecond(inputValuePoint.point.x, inputValuePoint.point.y, Connector.TYPE_JAGGED);
+                    DIAGRAMO.saveInterfaceMode = false;
+                    //var conId = INTERFACE_CONNECTOR_MANAGER.connectorCreate(new Point(points[10].point.x, (points[10].point.y - 5*(i+1))), new Point(inputValuePoint.point.x, inputValuePoint.point.y), Connector.TYPE_JAGGED);
+                    //var con = INTERFACE_CONNECTOR_MANAGER.connectorGetById(conId);
+                    //var cmdCreateCon = new ConnectorCreateCommand(conId);
+                    //con.turningPoints[0].x = points[10].point.x;
+                    //con.turningPoints[0].y = points[10].point.y - 5*(i+1));
+    
                 }
-            }*/
+            } */
         }
     }
 

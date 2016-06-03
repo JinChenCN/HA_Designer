@@ -163,6 +163,9 @@ Connector.load = function(o){
     newConnector.endStyle = o.endStyle;
     newConnector.startStyle = o.startStyle;
 
+    newConnector.startPointInfo = o.startPointInfo;
+    newConnector.endPointInfo = o.endPointInfo;
+
     newConnector.activeConnectionPointId = o.activeConnectionPointId;
     
     return newConnector;
