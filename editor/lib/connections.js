@@ -1578,22 +1578,22 @@ ConnectionPoint.prototype = {
             case ConnectionPoint.TYPE_INPUTEVENT:
                 context.font = "12px Arial";
                 context.fillStyle = '#072CD4';
-                context.fillText("Input Event: " + this.info.eventName, this.point.x-80, this.point.y);
+                context.fillText("Input Event " + this.info.eventName, this.point.x-80, this.point.y);
                 break;
             case ConnectionPoint.TYPE_OUTPUTEVENT:
                 context.font = "12px Arial";
                 context.fillStyle = '#13D407';
-                context.fillText("Output Event: " + this.info.eventName, this.point.x+5, this.point.y);
+                context.fillText("Output Event " + this.info.eventName, this.point.x+5, this.point.y);
                 break;
             case ConnectionPoint.TYPE_INPUTVALUE:
                 context.font = "12px Arial";
                 context.fillStyle = '#BE07D4';
-                context.fillText("Input " + this.info.Type + ": " + this.info.Name , this.point.x-80, this.point.y);
+                context.fillText("Input " + this.info.Name + ": " + this.info.Type , this.point.x-80, this.point.y);
                 break;
             case ConnectionPoint.TYPE_OUTPUTVALUE:
                 context.font = "12px Arial";
                 context.fillStyle = '#D40739';
-                context.fillText("Output " + this.info.Type + ": " + this.info.Name , this.point.x+5, this.point.y);
+                context.fillText("Output " + this.info.Name + ": " + this.info.Type , this.point.x+5, this.point.y);
                 break;
             default:
                 break;
