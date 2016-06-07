@@ -4159,6 +4159,7 @@ function action(action) {
             DIAGRAMO.interfaceMode = true;
             delegateFilePickup();
             document.getElementById("edit-area").style.display = "none";
+            document.getElementById("interface-exposure").style.display = "block";
             break;
 
         case 'show-design':
@@ -4172,6 +4173,7 @@ function action(action) {
             if(document.getElementById("edit-area").hasAttribute("style")) {
                 document.getElementById("edit-area").removeAttribute("style");
             }
+            document.getElementById("interface-exposure").style.display = "none";
             break;
 
         case 'connector-jagged':
@@ -4573,6 +4575,16 @@ function fileToReload(evt) {
                     STACK = Stack.load(obj['s']);
                     currentId = STACK.currentId;
                     CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
+                    //Jin 
+                    //Interface exposure
+                    var nameList = [];
+                    for (var l = 0; l < CONNECTOR_MANAGER.connectionPoints.length; l++) {
+                        if(typeof (CONNECTOR_MANAGER.connectionPoints)[l].info != 'undefined') {                            
+                           createCheckBoxes((CONNECTOR_MANAGER.connectionPoints)[l], nameList); 
+                        }
+
+                    }
+
                     document.getElementById("txtModelName").value = obj['mn'];
                     if(files.length == 1) {
                        try {
@@ -4628,6 +4640,36 @@ function fileToReload(evt) {
             }
 
         }
+
+//Jin
+//Interface exposure
+function createCheckBoxes(connectionPoint, nameList) {
+    var vName = "";
+    if(connectionPoint.type == ConnectionPoint.TYPE_INPUTEVENT || connectionPoint.type == ConnectionPoint.TYPE_OUTPUTEVENT) {
+        if(typeof connectionPoint.info.eventName != 'undefined')
+        {
+            vName = connectionPoint.info.modelname + "/Event/" + connectionPoint.info.eventName;
+        }
+    } else {
+        if(typeof connectionPoint.info.Name != 'undefined')
+        {
+            vName = connectionPoint.info.modelname + "/Variable/" + connectionPoint.info.Name;
+        }
+    }
+    if(nameList.indexOf(vName) == -1) {
+        nameList.push(vName);
+    } else {
+        vName = "";
+    }
+    if(vName != "") {
+        var s = "<tr style=\"width:60%\">" + 
+                "<td style=\"width:30%\"> " + "<label>" + vName + "</label>" + "</td> " +
+                "<td style=\"width:30%\">" +  "<input type=\"checkbox\" id=\"" + vName + "\""  +  "><label>Hide</label>"  + "</td>" +
+                "<td style=\"width:30%\">"  + "<input type=\"checkbox\"><label>Expose</label></p>" + "</td>" +
+                "</tr>"
+        document.getElementById("interface-exposure-check").insertAdjacentHTML("afterEnd", s);
+    }
+}
 
 function documentOnMouseDown(evt) {
     //Log.info("documentOnMouseDown");
