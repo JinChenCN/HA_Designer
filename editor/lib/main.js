@@ -4658,17 +4658,29 @@ function fileToReload(evt) {
 //Interface exposure
 function createCheckBoxes(connectionPoint, nameList) {
     var vName = "";
-    if(connectionPoint.type == ConnectionPoint.TYPE_INPUTEVENT || connectionPoint.type == ConnectionPoint.TYPE_OUTPUTEVENT) {
+    if(connectionPoint.type == ConnectionPoint.TYPE_INPUTEVENT) {
         if(typeof connectionPoint.info.eventName != 'undefined')
         {
-            vName = connectionPoint.info.modelname + "/Event/" + connectionPoint.info.eventName;
+            vName = connectionPoint.info.modelname + "/inputEvent/" + connectionPoint.info.eventName;
+        }
+    } else if (connectionPoint.type == ConnectionPoint.TYPE_OUTPUTEVENT) {
+        if(typeof connectionPoint.info.eventName != 'undefined')
+        {
+            vName = connectionPoint.info.modelname + "/outputEvent/" + connectionPoint.info.eventName;
+        }
+    } else if (connectionPoint.type == ConnectionPoint.TYPE_INPUTVALUE)
+    {
+        if(typeof connectionPoint.info.Name != 'undefined')
+        {
+            vName = connectionPoint.info.modelname + "/inputVariable/" + connectionPoint.info.Name;
         }
     } else {
         if(typeof connectionPoint.info.Name != 'undefined')
         {
-            vName = connectionPoint.info.modelname + "/Variable/" + connectionPoint.info.Name;
+            vName = connectionPoint.info.modelname + "/outputVariable/" + connectionPoint.info.Name;
         }
     }
+
     if(nameList.indexOf(vName) == -1) {
         nameList.push(vName);
     } else {
