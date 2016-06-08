@@ -4661,23 +4661,23 @@ function createCheckBoxes(connectionPoint, nameList) {
     if(connectionPoint.type == ConnectionPoint.TYPE_INPUTEVENT) {
         if(typeof connectionPoint.info.eventName != 'undefined')
         {
-            vName = connectionPoint.info.modelname + "/inputEvent/" + connectionPoint.info.eventName;
+            vName = connectionPoint.info.modelname + "/inputEvent/Event/" + connectionPoint.info.eventName;
         }
     } else if (connectionPoint.type == ConnectionPoint.TYPE_OUTPUTEVENT) {
         if(typeof connectionPoint.info.eventName != 'undefined')
         {
-            vName = connectionPoint.info.modelname + "/outputEvent/" + connectionPoint.info.eventName;
+            vName = connectionPoint.info.modelname + "/outputEvent/Event/" + connectionPoint.info.eventName;
         }
     } else if (connectionPoint.type == ConnectionPoint.TYPE_INPUTVALUE)
     {
         if(typeof connectionPoint.info.Name != 'undefined')
         {
-            vName = connectionPoint.info.modelname + "/inputVariable/" + connectionPoint.info.Name;
+            vName = connectionPoint.info.modelname + "/inputVariable/" + connectionPoint.info.Type + "/" + connectionPoint.info.Name;
         }
     } else {
         if(typeof connectionPoint.info.Name != 'undefined')
         {
-            vName = connectionPoint.info.modelname + "/outputVariable/" + connectionPoint.info.Name;
+            vName = connectionPoint.info.modelname + "/outputVariable/" + connectionPoint.info.Type + "/" + connectionPoint.info.Name;
         }
     }
 
