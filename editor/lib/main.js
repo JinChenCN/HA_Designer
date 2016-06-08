@@ -4677,8 +4677,7 @@ function createCheckBoxes(connectionPoint, nameList) {
     if(vName != "") {
         var div = document.createElement('div');
         div.innerHTML =  "<div><label>" + vName + "</label>" +
-                "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" id=\"" + vName + "_hide" + "\""  +  "><label>Hide</label>" +
-                "&nbsp;&nbsp;<input type=\"checkbox\" id=\"" + vName + + "_expose" + "\""  +  "><label>Expose</label>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" id=\"" + vName + "\""  +  "><label>Expose</label>" +
                 "</div> </p>";
         //document.getElementById("interface-exposure-check").insertAdjacentHTML("afterEnd", s);
         document.getElementById("interface-exposure-check").appendChild(div);
@@ -5172,8 +5171,23 @@ function addOptionsForOption_paras() {
 function returnInterfaceInJasonFormat() {
     var outputJson = "{ \"modelName\": \"" + document.getElementById("txtModelName").value + "\",";
     
-    outputJson += "\"interface\":[";
+    outputJson += "\"exposedInterface\":[";
     var checkBoxAncestor = document.getElementById("interface-exposure-check");
+    var decendents = checkBoxAncestor.childNodes;
+    var Comma = false;
+    for (var i = 0; i <decendents.length; i ++) {
+        var checkboxes = decendents[i].getElementsByTagName("input");
+        for (var j = 0; j < checkboxes.length; j ++) {
+            if(checkboxes[j].checked == true) {
+                if(Comma) {
+                    outputJson += ",";
+                }
+                outputJson += "\"" + checkboxes[j].id + "\"";
+                Comma = true;
+            }
+        }
+    }
+    outputJson += "],";
 
     outputJson +=  "\"connections\":["; 
     var hasToAddComma = false;
