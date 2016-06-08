@@ -4157,9 +4157,9 @@ function action(action) {
             }
             selectedFigureId = -1;
             DIAGRAMO.interfaceMode = true;
-            delegateFilePickup();
             document.getElementById("edit-area").style.display = "none";
             document.getElementById("interface-exposure").style.display = "block";
+            delegateFilePickup();
             break;
 
         case 'show-design':
@@ -4169,11 +4169,13 @@ function action(action) {
             }
             selectedFigureId = -1;
             DIAGRAMO.interfaceMode = false;
-            delegateFilePickup();
+
             if(document.getElementById("edit-area").hasAttribute("style")) {
                 document.getElementById("edit-area").removeAttribute("style");
             }
             document.getElementById("interface-exposure").style.display = "none";
+
+            delegateFilePickup();
             break;
 
         case 'connector-jagged':
@@ -4562,6 +4564,14 @@ function fileToReload(evt) {
                 } 
             }else
             {
+                var interfaceCheckBox = document.getElementById("interface-exposure-check");
+                while(interfaceCheckBox.hasChildNodes())
+                {
+                    interfaceCheckBox.removeChild(interfaceCheckBox.lastChild);
+                }
+
+                var nameList = [];
+
                 var currentId = 0;
                 var file = files[0];
                 //  var start = parseInt(opt_startByte) || 0;
@@ -4577,7 +4587,6 @@ function fileToReload(evt) {
                     CONNECTOR_MANAGER = ConnectorManager.load(obj['m']);
                     //Jin 
                     //Interface exposure
-                    var nameList = [];
                     for (var l = 0; l < CONNECTOR_MANAGER.connectionPoints.length; l++) {
                         if(typeof (CONNECTOR_MANAGER.connectionPoints)[l].info != 'undefined') {                            
                            createCheckBoxes((CONNECTOR_MANAGER.connectionPoints)[l], nameList); 
@@ -4618,6 +4627,10 @@ function fileToReload(evt) {
 
                         for(var k = 0; k < newPoints.length; k++)
                         {
+                            if(typeof (newPoints[k].info != 'undefined') ) {                            
+                               createCheckBoxes(newPoints[k], nameList); 
+                            }
+
                             newPoints[k].id = newPoints[k].id + origianlCurrentId;
                             newPoints[k].parentId = currentId;
                             CONNECTOR_MANAGER.connectionPoints.push(newPoints[k]);
@@ -4662,12 +4675,13 @@ function createCheckBoxes(connectionPoint, nameList) {
         vName = "";
     }
     if(vName != "") {
-        var s = "<tr style=\"width:60%\">" + 
-                "<td style=\"width:30%\"> " + "<label>" + vName + "</label>" + "</td> " +
-                "<td style=\"width:30%\">" +  "<input type=\"checkbox\" id=\"" + vName + "\""  +  "><label>Hide</label>"  + "</td>" +
-                "<td style=\"width:30%\">"  + "<input type=\"checkbox\"><label>Expose</label></p>" + "</td>" +
-                "</tr>"
-        document.getElementById("interface-exposure-check").insertAdjacentHTML("afterEnd", s);
+        var div = document.createElement('div');
+        div.innerHTML =  "<div><label>" + vName + "</label>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" id=\"" + vName + "_hide" + "\""  +  "><label>Hide</label>" +
+                "&nbsp;&nbsp;<input type=\"checkbox\" id=\"" + vName + + "_expose" + "\""  +  "><label>Expose</label>" +
+                "</div> </p>";
+        //document.getElementById("interface-exposure-check").insertAdjacentHTML("afterEnd", s);
+        document.getElementById("interface-exposure-check").appendChild(div);
     }
 }
 
@@ -5154,8 +5168,13 @@ function addOptionsForOption_paras() {
 
 }
 
+//Jin: Export interface as Json
 function returnInterfaceInJasonFormat() {
     var outputJson = "{ \"modelName\": \"" + document.getElementById("txtModelName").value + "\",";
+    
+    outputJson += "\"interface\":[";
+    var checkBoxAncestor = document.getElementById("interface-exposure-check");
+
     outputJson +=  "\"connections\":["; 
     var hasToAddComma = false;
     for (var i = 0; i < CONNECTOR_MANAGER.connectors.length ; i++) {
