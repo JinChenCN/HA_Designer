@@ -5202,14 +5202,14 @@ function returnInterfaceInJasonFormat() {
     outputJson += "],";
 
     outputJson +=  "\"connections\":["; 
-    var hasToAddComma = false;
-    for (var i = 0; i < CONNECTOR_MANAGER.connectors.length ; i++) {
+    var hasToAddCommaForIn = false;
+    for (var i = 0; i < CONNECTOR_MANAGER.connectors.length; i++) {
         var obj = CONNECTOR_MANAGER.connectors[i];
         if (obj == null) {
             continue;
         }
         var connectorStr = "";
-        if (hasToAddComma) {
+        if (hasToAddCommaForIn) {
 
             connectorStr += ",{";
         }
@@ -5223,7 +5223,7 @@ function returnInterfaceInJasonFormat() {
 
         connectorStr += "}";
         outputJson += connectorStr;
-        hasToAddComma = true;
+        hasToAddCommaForIn = true;
     }
 
     outputJson += "]}";
