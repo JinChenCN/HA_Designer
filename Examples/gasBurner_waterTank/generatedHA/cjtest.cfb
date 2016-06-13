@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compositeFunctionBlockModel Author="Jin Chen" Date="06/06/2016 13:00 PM" Organization="Jin_s Macintosh" modelType="Composite" name="gasBurner_waterTank_Interface">
+  <functionBlockInterface>
+    <cFBModelHasFBInterface>
+      <functionBlockInterface modelType="Composite" name="gasBurner_waterTank_Interface" x="1006.25" y="962.5">
+        <events>
+          <functionBlockHasEvents>
+            <event name="X" scope="Input"/>
+          </functionBlockHasEvents>
+          <functionBlockHasEvents>
+            <event name="OFF" scope="Output"/>
+          </functionBlockHasEvents>
+        </events>
+        <variables>
+          <functionBlockHasVariables>
+            <variable name="a" scope="Input" type="ANY"/>
+          </functionBlockHasVariables>
+          <functionBlockHasVariables>
+            <variable name="q" scope="Input" type="ANY"/>
+          </functionBlockHasVariables>
+        </variables>
+        <inputEventPorts>
+          <functionBlockHasInputEventPorts>
+            <inputEventPort>
+              <proxyTargetPorts>
+                <proxyConnection>
+                  <inputEventPortMoniker Id="f7332827-ab7e-4105-9336-20708eebe245"/>
+                </proxyConnection>
+              </proxyTargetPorts>
+              <event>
+                <inputEventPortReferencesEvent>
+                  <eventMoniker name="/gasBurner_waterTank_Interface/gasBurner_waterTank_Interface/X"/>
+                </inputEventPortReferencesEvent>
+              </event>
+            </inputEventPort>
+          </functionBlockHasInputEventPorts>
+        </inputEventPorts>
+        <outputEventPorts>
+          <functionBlockHasOutputEventPorts>
+            <outputEventPort>
+              <proxyTargetPorts>
+                <proxyConnection>
+                  <outputEventPortMoniker Id="d07f9800-7342-472f-9c15-ca7cd1124a08"/>
+                </proxyConnection>
+              </proxyTargetPorts>
+              <event>
+                <outputEventPortReferencesEvent>
+                  <eventMoniker name="/gasBurner_waterTank_Interface/gasBurner_waterTank_Interface/OFF"/>
+                </outputEventPortReferencesEvent>
+              </event>
+            </outputEventPort>
+          </functionBlockHasOutputEventPorts>
+        </outputEventPorts>
+        <inputVariablePorts>
+          <functionBlockHasInputVariablePorts>
+            <inputVariablePort>
+              <proxyTargetPorts>
+                <proxyConnection>
+                  <inputVariablePortMoniker Id="48c179ce-a769-4a7e-a703-a6fef56c9c21"/>
+                </proxyConnection>
+              </proxyTargetPorts>
+              <variable>
+                <inputVariablePortReferencesVariable>
+                  <variableMoniker name="/gasBurner_waterTank_Interface/gasBurner_waterTank_Interface/a"/>
+                </inputVariablePortReferencesVariable>
+              </variable>
+            </inputVariablePort>
+          </functionBlockHasInputVariablePorts>
+          <functionBlockHasInputVariablePorts>
+            <inputVariablePort>
+              <proxyTargetPorts>
+                <proxyConnection>
+                  <inputVariablePortMoniker Id="ac9323bb-6f45-43be-a2d1-fb662e33912d"/>
+                </proxyConnection>
+              </proxyTargetPorts>
+              <variable>
+                <inputVariablePortReferencesVariable>
+                  <variableMoniker name="/gasBurner_waterTank_Interface/gasBurner_waterTank_Interface/q"/>
+                </inputVariablePortReferencesVariable>
+              </variable>
+            </inputVariablePort>
+          </functionBlockHasInputVariablePorts>
+        </inputVariablePorts>
+        <outputVariablePorts/>
+      </functionBlockInterface>
+    </cFBModelHasFBInterface>
+  </functionBlockInterface>
+  <functionBlockReferences>
+    <cFBModelHasFBReferences>
+      <functionBlockReference creationMode="Resource" name="waterTank" referencedFile="waterTank.fb" x="1531.25" y="218.75">
+        <events>
+          <functionBlockHasEvents>
+            <eventRef name="OFF" scope="Output"/>
+          </functionBlockHasEvents>
+          <functionBlockHasEvents>
+            <eventRef name="ON" scope="Output"/>
+          </functionBlockHasEvents>
+        </events>
+        <variables>
+          <functionBlockHasVariables>
+            <variableRef name="q" scope="Input" type="ANY"/>
+          </functionBlockHasVariables>
+          <functionBlockHasVariables>
+            <variableRef name="w" scope="Output" type="ANY"/>
+          </functionBlockHasVariables>
+        </variables>
+        <inputEventPorts/>
+        <outputEventPorts>
+          <functionBlockHasOutputEventPorts>
+            <outputEventPort Id="d07f9800-7342-472f-9c15-ca7cd1124a08">
+              <wireTargetPorts>
+                <wireConnection unitDelayed="false">
+                  <inputEventPortMoniker Id="f7332827-ab7e-4105-9336-20708eebe245"/>
+                </wireConnection>
+              </wireTargetPorts>
+              <event>
+                <outputEventPortReferencesEvent>
+                  <eventRefMoniker name="/gasBurner_waterTank_Interface/waterTank/OFF"/>
+                </outputEventPortReferencesEvent>
+              </event>
+            </outputEventPort>
+          </functionBlockHasOutputEventPorts>
+          <functionBlockHasOutputEventPorts>
+            <outputEventPort Id="fc74f9b2-8efd-46d9-92cb-198f1595883e">
+              <event>
+                <outputEventPortReferencesEvent>
+                  <eventRefMoniker name="/gasBurner_waterTank_Interface/waterTank/ON"/>
+                </outputEventPortReferencesEvent>
+              </event>
+            </outputEventPort>
+          </functionBlockHasOutputEventPorts>
+        </outputEventPorts>
+        <inputVariablePorts>
+          <functionBlockHasInputVariablePorts>
+            <inputVariablePort Id="ac9323bb-6f45-43be-a2d1-fb662e33912d">
+              <variable>
+                <inputVariablePortReferencesVariable>
+                  <variableRefMoniker name="/gasBurner_waterTank_Interface/waterTank/q"/>
+                </inputVariablePortReferencesVariable>
+              </variable>
+            </inputVariablePort>
+          </functionBlockHasInputVariablePorts>
+        </inputVariablePorts>
+        <outputVariablePorts>
+          <functionBlockHasOutputVariablePorts>
+            <outputVariablePort Id="4489e665-94af-48c3-a021-44e37b89ce1f">
+              <variable>
+                <outputVariablePortReferencesVariable>
+                  <variableRefMoniker name="/gasBurner_waterTank_Interface/waterTank/w"/>
+                </outputVariablePortReferencesVariable>
+              </variable>
+            </outputVariablePort>
+          </functionBlockHasOutputVariablePorts>
+        </outputVariablePorts>
+      </functionBlockReference>
+    </cFBModelHasFBReferences>
+    <cFBModelHasFBReferences>
+      <functionBlockReference creationMode="Resource" name="gasBurner" referencedFile="gasBurner.fb" x="1531.25" y="218.75">
+        <events>
+          <functionBlockHasEvents>
+            <eventRef name="X" scope="Input"/>
+          </functionBlockHasEvents>
+          <functionBlockHasEvents>
+            <eventRef name="Y" scope="Output"/>
+          </functionBlockHasEvents>
+        </events>
+        <variables>
+          <functionBlockHasVariables>
+            <variableRef name="a" scope="Input" type="ANY"/>
+          </functionBlockHasVariables>
+          <functionBlockHasVariables>
+            <variableRef name="s" scope="Output" type="ANY"/>
+          </functionBlockHasVariables>
+        </variables>
+        <inputEventPorts>
+          <functionBlockHasInputEventPorts>
+            <inputEventPort Id="f7332827-ab7e-4105-9336-20708eebe245">
+              <event>
+                <inputEventPortReferencesEvent>
+                  <eventRefMoniker name="/gasBurner_waterTank_Interface/gasBurner/X"/>
+                </inputEventPortReferencesEvent>
+              </event>
+            </inputEventPort>
+          </functionBlockHasInputEventPorts>
+        </inputEventPorts>
+        <outputEventPorts>
+          <functionBlockHasOutputEventPorts>
+            <outputEventPort Id="f6c51e7b-ba9e-49d8-92b5-eab4375b1011">
+              <event>
+                <outputEventPortReferencesEvent>
+                  <eventRefMoniker name="/gasBurner_waterTank_Interface/gasBurner/Y"/>
+                </outputEventPortReferencesEvent>
+              </event>
+            </outputEventPort>
+          </functionBlockHasOutputEventPorts>
+        </outputEventPorts>
+        <inputVariablePorts>
+          <functionBlockHasInputVariablePorts>
+            <inputVariablePort Id="48c179ce-a769-4a7e-a703-a6fef56c9c21">
+              <variable>
+                <inputVariablePortReferencesVariable>
+                  <variableRefMoniker name="/gasBurner_waterTank_Interface/gasBurner/a"/>
+                </inputVariablePortReferencesVariable>
+              </variable>
+            </inputVariablePort>
+          </functionBlockHasInputVariablePorts>
+        </inputVariablePorts>
+        <outputVariablePorts>
+          <functionBlockHasOutputVariablePorts>
+            <outputVariablePort Id="14f85934-0811-4034-abb0-2949fa76b1f2">
+              <wireTargetPorts>
+                <wireConnection unitDelayed="false">
+                  <inputVariablePortMoniker Id="ac9323bb-6f45-43be-a2d1-fb662e33912d"/>
+                </wireConnection>
+              </wireTargetPorts>
+              <variable>
+                <outputVariablePortReferencesVariable>
+                  <variableRefMoniker name="/gasBurner_waterTank_Interface/gasBurner/s"/>
+                </outputVariablePortReferencesVariable>
+              </variable>
+            </outputVariablePort>
+          </functionBlockHasOutputVariablePorts>
+        </outputVariablePorts>
+      </functionBlockReference>
+    </cFBModelHasFBReferences>
+  </functionBlockReferences>
+</compositeFunctionBlockModel>
