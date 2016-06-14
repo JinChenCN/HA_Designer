@@ -5350,7 +5350,7 @@ function returnModelInfoInJasonFormat() {
             */
             locationStr += returnConditionJasonStrByText(txtString);
         }
-        //close one location jason
+        //close one location json
         locationStr += "}";
         outputJason += locationStr;
         hasToAddComma = true;
