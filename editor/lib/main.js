@@ -5373,7 +5373,7 @@ function captureInterfaceValues() {
     values += collectinputEventStr();
     values += collectoutputEventStr();
     values += "]"
-    return values;
+    return values.replace(/,,/g, ",");
 }
 
 function checkVarNames(input) {

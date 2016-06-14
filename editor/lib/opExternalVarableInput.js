@@ -84,9 +84,10 @@ function collectExternalVarableInputStr() {
     }
 
     var s = s + "]},";
+    s = s.replace(/\[,/g, "["); 
     
    // var serializedDiagram = JSON.stringify(s)
-    return s;
+    return s.replace(/,]/g, "]");
     //document.getElementById("txtjson").value = s;
 }
 
