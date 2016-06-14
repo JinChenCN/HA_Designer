@@ -50,6 +50,13 @@
         var figureSetsURL = appURL + '/editor/lib/sets';
         var insertImageURL = appURL + '/editor/data/import/';
 
+        function checkAll(source) {
+            var checkboxes = document.getElementsByName('ExposeInterfaceCheckBox');
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+            checkboxes[i].checked = source.checked;
+          }
+        }
+
         function showImport() {
             //alert("ok");
             var r = confirm("Current diagram will be deleted. Are you sure?");
@@ -449,6 +456,7 @@
                         <hr />
                     </tr>
                     <tr>
+                        <div style="padding-left:30px"> <input type="checkbox" onClick="checkAll(this)"/> Check All</p> </div>
                         <div id="interface-exposure-check" style="padding-left:30px">
                         </div>
                     <hr />

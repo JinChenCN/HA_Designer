@@ -4688,8 +4688,9 @@ function createCheckBoxes(connectionPoint, nameList) {
     }
     if(vName != "") {
         var div = document.createElement('div');
-        div.innerHTML =  "<div><label>" + vName + "</label>" +
-                "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" id=\"" + vName + "\""  +  "><label>Expose</label>" +
+        div.innerHTML =  "<div>" + 
+        "<label>" + vName + "</label>" +
+                "&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" id=\"" + vName + "\""  + "name=\"ExposeInterfaceCheckBox\""+  "><label>Expose</label>" +
                 "</div> </p>";
         //document.getElementById("interface-exposure-check").insertAdjacentHTML("afterEnd", s);
         document.getElementById("interface-exposure-check").appendChild(div);
